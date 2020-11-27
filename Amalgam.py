@@ -147,7 +147,7 @@ while(True):
         }
         abilityLib.get(ability)(player, enemy)
         player.abilityUsed = True
-        player.lastAbility[0] = ability
+        player.lastAbilityUsed[0] = ability
         player.AP -= 1
     def getAbilities(player, enemy):
         if len(player.abilities) < 1:
@@ -277,7 +277,7 @@ while(True):
             elif choice == str(player.currentOptions.index("Abilities")+1):
                 if player.timeLoop != 0:
                     player.AP += 1
-                    useAbility(player.lastAbility[0], player, enemy)
+                    useAbility(player.lastAbilityUsed[0], player, enemy)
                     player.canUseAbilities = True
                 if player.canUseAbilities == False:
                     clear()
@@ -334,7 +334,7 @@ while(True):
                     wait()
             #-------------
             turn = turn + 1
-        player.lastAbility = [""]
+        player.lastAbilityUsed = [""]
         player.bleedLevel = 0
         enemy.bleedLevel = 0
         resetattack(player, enemy)
@@ -364,7 +364,6 @@ while(True):
 
 
     #CHAPTER 1
-    """
     clear()
     print((SaveOne.name + " breaks from of his egg to breathe his first breath."))
     wait()
@@ -374,9 +373,8 @@ while(True):
     clear()
     print("A rat seeks to claim your newfound mortality.")
     wait()
-    Rat = ClassFile.enemy("Rat",25,3,1,[3,4,9,12],[],[],None)
+    Rat = ClassFile.enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["no loot"])
     battle(SaveOne, Rat)
-    """
 
     def abilityUpgrade(player,abilities,enemy):
         response = 0
@@ -393,45 +391,47 @@ while(True):
             clear()
         player.abilities.append(abilities[int(response)-1])
     clear()
-    abilityUpgrade()
+
 
 
     #Chapter 2
-    """
     clear()
     print("A wild Pig appears!")
     wait()
     pigSTurns = [2,7,8,10,12,16,20]
     pigGTurns = []
-    Pig = ClassFile.enemy("Pig",35,4,1,pigSTurns,pigGTurns,[],None)
+    Pig = ClassFile.enemy("Pig",35,4,1,pigSTurns,pigGTurns,[],None,["no loot"])
     battle(SaveOne, Pig)
-    """
-    def levelUp(player,hp,attack,defense):
+
+    def levelUp(player,hp,attack,defense,AP):
         print("Pig Defeated! Level Up!")
         input()
         player.maxhp += hp
         player.hp = player.maxhp
-        print(("HP + " + str(hp)))
+        print("HP + " + str(hp))
         input()
         player.maxattack += attack
         player.attack = player.maxattack
-        print(("Attack + " + str(attack)))
+        print("Attack + " + str(attack))
         input()
         player.maxdefense += defense
         player.defense = player.maxdefense
-        print(("Defense + " + str(defense)))
-
+        print("Defense + " + str(defense))
+        input()
+        player.maxAP += AP
+        player.AP = player.maxAP
+        print("Max AP + " + str(AP))
     clear()
-    levelUp(SaveOne,20,4,1)
+    levelUp(SaveOne,20,4,1,1)
     wait()
 
     #Chapter 3
-    """
+    
     orcSTurns = [2,7,13,15,16,17]
     orcGTurns = [3,4,8,9,14]
-    Orc = ClassFile.enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],None)
+    Orc = ClassFile.enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],None,["no loot"])
     battle(SaveOne, Orc)
-    """
+
 
     def secondUpgrade(player):
         response = 0
@@ -477,16 +477,15 @@ while(True):
     clear()
     secondUpgrade(SaveOne)
     #Chapter 4
-    """
     slothSTurns = [6,15,18,23,26,30,35,38,41,42,43,44,45]
     slothGTurns = [4,5,9,14,16,20,21,24,25,31,32,33,34,36,37]
     slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
     SavageSloth = ClassFile.enemy("Savage Sloth", 100, 10, 1,
-    slothSTurns, slothGTurns, slothDTurns,"Shred")
+    slothSTurns, slothGTurns, slothDTurns,"Shred",["no loot"])
     battle(SaveOne, SavageSloth)
-    """
     clear()
-    levelUp(SaveOne,55,3,2)
+    
+    levelUp(SaveOne,55,3,2,1)
 
     mageSTurns = []
     for x in range(1,100,5):
@@ -501,7 +500,7 @@ while(True):
         mageDTurns.append(x)
     mageEffect = True
     temporalMage = ClassFile.enemy("Temporal Mage",191,13,2,
-    mageSTurns, mageGTurns, mageDTurns, "Time Loop")
+    mageSTurns, mageGTurns, mageDTurns, "Time Loop", ["no loot"])
     wait()
     battle(SaveOne, temporalMage)
 
