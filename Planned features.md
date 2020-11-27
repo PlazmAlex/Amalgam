@@ -13,6 +13,8 @@ in the complete game.
 
 -save system
 
+-written story
+
 
 This list will contain features being considered for inclusion.
 
@@ -22,5 +24,5 @@ This list will contain features being considered for inclusion.
 
 -item system
 
--branchin story path
+-branching paths
 
