@@ -232,7 +232,7 @@ while(True):
                 n += 1
             if player.timeLoop != 0:
                 while input() != "1":
-                    #FUCKTHISIMPLEMENTATION
+                    #Looking for a better way to reset screen on incorrect input
                     clear()
                     print(("Turn: " + str(turn)))
                     if mageEffect == True:
