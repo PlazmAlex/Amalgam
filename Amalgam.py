@@ -190,7 +190,6 @@ while(True):
         
     def battle(player, enemy):
         turn = 1
-        lastAction = ""
         enemyBleed = ""
         playerBleed = ""
         while enemy.hp > 0 and player.hp > 0:
@@ -226,6 +225,7 @@ while(True):
             n = 1
             for x in player.currentOptions:
                 if player.timeLoop != 0:
+                    #only show players last choice as an available option
                     if x != player.currentOptions[int(choice)-1]:
                         continue
                 print((str(n) + ") " + x))
@@ -351,14 +351,7 @@ while(True):
             print((player.name + " died!"))#Need lose function
             wait()
             sys.exit(0)
-            
 
-    def wait():
-        input("\n\nPress enter to continue")
-        
-    def clear():
-        os.system('cls')
-        
     clear()
     initialize_game()
 
