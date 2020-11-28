@@ -1,13 +1,16 @@
+import UIModule
+#mage effect is a bad implementation.
+#Need to create a class that handles turn based events independent of enemy
+mageEffect = False
 class battle:
-
     def dealDamage(self, attacker, defender):
         critical = ""
         devestate = ""
         if defender.guard == True:
-            clear()
+            UIModule.clear()
             print((defender.name + " guarded!\n"))
             defense = defender.defense * 3
-            wait()
+            UIModule.wait()
         else:
             defense = defender.defense
         damage = attacker.attack - defense
@@ -21,19 +24,18 @@ class battle:
         if damage <= 0:
             damage = 1
         defender.hp = defender.hp - damage
-        main.clear()
+        UIModule.clear()
         print((critical + devestate + attacker.name + " dealt " + str(damage) + " damage to " + defender.name + "!"))
-        main.wait()
+        UIModule.wait()
         if defender.hp < 0:
             defender.hp = 0
-
-
+            
     def battle(self, player, enemy):
         turn = 1
         enemyBleed = ""
         playerBleed = ""
         while enemy.hp > 0 and player.hp > 0:
-            clear()
+            UIModule.clear()
             #Display info
             print(("Turn: " + str(turn)))
             if mageEffect == True:
@@ -73,7 +75,7 @@ class battle:
             if player.timeLoop != 0:
                 while input() != "1":
                     #Looking for a better way to reset screen on incorrect input
-                    clear()
+                    UIModule.clear()
                     print(("Turn: " + str(turn)))
                     if mageEffect == True:
                         if turn in range(1,100,2):
@@ -120,9 +122,9 @@ class battle:
                     useAbility(player.lastAbilityUsed[0], player, enemy)
                     player.canUseAbilities = True
                 if player.canUseAbilities == False:
-                    clear()
+                    UIModule.clear()
                     print((player.name + " cannot use abilites right now."))
-                    wait()
+                    UIModule.wait()
                     continue
                 if player.timeLoop == 0:
                     getAbilities(player, enemy)
@@ -143,9 +145,9 @@ class battle:
             #------------
             #End of Turn effects
             if player.timeLoop > 0:
-                clear()
+                UIModule.clear()
                 print((player.name + " is stuck in a time loop!"))
-                wait()
+                UIModule.wait()
                 player.timeLoop -= 1
             player.canUseAbilities = True
             player.guard = False
@@ -155,23 +157,23 @@ class battle:
             if (player.bleedLevel > 0) and (enemy.hp > 0):   
                 playerBleed = (" BLEED(LV " + str(player.bleedLevel) + ")")
                 player.hp = player.hp - player.bleedLevel * 2
-                clear()
+                UIModule.clear()
                 print((player.name + " bled for " + str(player.bleedLevel * 2) + " damage!"))
-                wait()
+                UIModule.wait()
                 if player.hp <= 0:
-                    clear()
+                    UIModule.clear()
                     print((player.name + " bled out!"))
-                    wait()
+                    UIModule.wait()
             if enemy.bleedLevel > 0:
                 enemyBleed = (" BLEED(LV " + str(enemy.bleedLevel) + ")")
                 enemy.hp = enemy.hp - enemy.bleedLevel * 2
-                clear()
+                UIModule.clear()
                 print((enemy.name + " bled for " + str(enemy.bleedLevel * 2) + " damage!"))
-                wait()
+                UIModule.wait()
                 if enemy.hp <= 0:
-                    clear()
+                    UIModule.clear()
                     print((enemy.name + " bled out!"))
-                    wait()
+                    UIModule.wait()
             #-------------
             turn = turn + 1
         player.lastAbilityUsed = [""]
@@ -182,12 +184,12 @@ class battle:
         player.AP = player.maxAP
         if player.hp > 0:
             resethp(player, enemy)
-            clear()
+            UIModule.clear()
             print((player.name + " survived!"))
-            wait()
+            UIModule.wait()
         else:
             resethp(player, enemy)
-            clear()
+            UIModule.clear()
             print((player.name + " died!"))#Need lose function
-            wait()
+            UIModule.wait()
             sys.exit(0)

@@ -1,23 +1,22 @@
 import os
-import Character
-import Combat
-import Ability
-import UI
+import CharacterModule
+import CombatModule
+import AbilityModule
+import UIModule
 import sys
-#This mage effect needs to be moved into a class
-mageEffect = False
+
 
 print("*********\n*Amalgam*\n*********")
-UI.wait()
+UIModule.wait()
 
 def initialize_game():
-    UI.clear()
+    UIModule.clear()
     response = input("Enter number to select menu option\n\n1) New Run\n2) Class\n")
-    UI.wait()
+    UIModule.wait()
     
     if response == "2":
         print("No other classes unlocked")
-        UI.wait()
+        UIModule.wait()
         initialize_game()
         
     elif response == "1": 
@@ -25,53 +24,53 @@ def initialize_game():
         name = ""
         n = 1
         while (len(name) > 15 or len(name) < 1):
-            UI.clear()
+            UIModule.clear()
             if n < 2:
                 limit = ""
             else:
-                limit = "(15 character limit)"
+                limit = "(15 Character limit)"
             name = input("Please name your Amalgam %s\n" % limit)
             n += 1
-        UI.clear()
-        SaveOne = Character.SaveFile(name)
+        UIModule.clear()
+        SaveOne = CharacterModule.SaveFile(name)
         print(("Alright " + SaveOne.name + ", time to begin your adventure."))
-        input()
+        UIModule.wait()
     else:
         initialize_game()
         
 def shred(player, enemy):
     if enemy.guard == True:
-        UI.clear()
+        UIModule.clear()
         print((enemy.name + " guarded!\n"))
-        UI.wait()
-        UI.clear()
+        UIModule.wait()
+        UIModule.clear()
         return
     enemy.bleedLevel += 1
-    UI.clear()
+    UIModule.clear()
     print((enemy.name + " has been shredded!"))
-    UI.wait()
+    UIModule.wait()
 def shredE(player, enemy):
     if player.guard == True:
-        UI.clear()
+        UIModule.clear()
         print((player.name + " guarded!\n"))
-        UI.wait()
-        UI.clear()
+        UIModule.wait()
+        UIModule.clear()
         return
     player.bleedLevel += 1
-    UI.clear()
+    UIModule.clear()
     print((player.name + " has been shredded!"))
-    UI.wait()
+    UIModule.wait()
 def doubleeviscerate(player,enemy):
     if enemy.guard == True:
-        UI.clear()
+        UIModule.clear()
         print((enemy.name + " guarded!\n"))
-        UI.wait()
-        UI.clear()
+        UIModule.wait()
+        UIModule.clear()
         return
     enemy.bleedLevel += 2
-    UI.clear()
+    UIModule.clear()
     print((enemy.name + " was torn apart!"))
-    UI.wait()    
+    UIModule.wait()    
 def useAbilityEnemy(player,enemy):
     enemyAbilityLib = {
         "Shred": shredE,
@@ -79,36 +78,36 @@ def useAbilityEnemy(player,enemy):
     }
     enemyAbilityLib.get(enemy.ability)(player,enemy)
 def heal(player, enemy):
-    UI.clear()
+    UIModule.clear()
     heal = int(round(player.maxhp * 0.70) + 1)
     player.hp = player.hp + heal
     print((player.name + " healed " + str(heal) + " HP!"))
-    UI.wait()
+    UIModule.wait()
     if player.hp > player.maxhp:
         player.hp = player.maxhp
 def rejuvinate(player,enemy):
-    UI.clear()
+    UIModule.clear()
     heal = int(player.maxhp)
     player.hp = player.hp + heal
     print((player.name + " restored " + "all" + " HP!"))
-    UI.wait()
+    UIModule.wait()
     if player.hp > player.maxhp:
         player.hp = player.maxhp
 def strengthen(player, enemy):
     player.attack = player.attack + 2
-    UI.clear()
+    UIModule.clear()
     print((player.name + " grew stronger!\n\nAttack + 2"))
-    UI.wait()
+    UIModule.wait()
 def bellow(player, enemy):
     player.attack = player.attack + 3
-    UI.clear()
+    UIModule.clear()
     print((player.name + " ROARED!!\n\nAttack + 3"))
-    UI.wait()
+    UIModule.wait()
 def timeLoopE(player,enemy):
     player.timeLoop += 3
-    UI.clear()
+    UIModule.clear()
     print((enemy.name + " put " + player.name + " in a time loop for 2 turns!"))
-    UI.wait()
+    UIModule.wait()
 def useAbility(ability, player, enemy):
     abilityLib = {
         "Shred": shred,
@@ -124,16 +123,16 @@ def useAbility(ability, player, enemy):
     player.AP -= 1
 def getAbilities(player, enemy):
     if len(player.abilities) < 1:
-        UI.clear()
+        UIModule.clear()
         print ("No Abilities")
-        UI.wait()
+        UIModule.wait()
         return
     choice = ""
     options = []
     for x in range(1,(len(player.abilities)+2)):
         options.append(str(x))
     while (choice not in options):
-        UI.clear()
+        UIModule.clear()
         n = 1
         for x in player.abilities:
             print((str(n) + ") " + x))
@@ -143,9 +142,9 @@ def getAbilities(player, enemy):
     if int(choice) == len(player.abilities) + 1:
         return
     if player.AP < 1:
-        UI.clear()
+        UIModule.clear()
         print("No ability points left")
-        UI.wait()
+        UIModule.wait()
         return
     else:
         #player.abilityUses[int(choice)-1] = player.abilityUses[int(choice)-1] - 1 THIS IS FOR SUBTRACTING A USE FROM INDIVIDUAL ABILITIES
@@ -161,22 +160,22 @@ def resetattack(player, enemy):
     player.attack = player.maxattack
     enemy.attack = enemy.maxattack
 
-UI.clear()
+UIModule.clear()
 initialize_game()
 
 
 #CHAPTER 1
-UI.clear()
+UIModule.clear()
 print((SaveOne.name + " breaks from of his egg to breathe his first breath."))
-UI.wait()
-UI.clear()
+UIModule.wait()
+UIModule.clear()
 print("The hands of fate have other plans, however...")
-UI.wait()
-UI.clear()
+UIModule.wait()
+UIModule.clear()
 print("A rat seeks to claim your newfound mortality.")
-UI.wait()
-Rat = Character.Enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["no loot"])
-Combat.battle(SaveOne, Rat)
+UIModule.wait()
+Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["no loot"])
+CombatModule.battle(SaveOne, Rat)
 
 def abilityUpgrade(player,abilities,enemy):
     response = 0
@@ -190,16 +189,16 @@ def abilityUpgrade(player,abilities,enemy):
             n += 1
             continue
         response = input()
-        UI.clear()
+        UIModule.clear()
     player.abilities.append(abilities[int(response)-1])
-UI.clear()
+UIModule.clear()
 
 
 
 #Chapter 2
-UI.clear()
+UIModule.clear()
 print("A wild Pig appears!")
-UI.wait()
+UIModule.wait()
 pigSTurns = [2,7,8,10,12,16,20]
 pigGTurns = []
 Pig = ClassFile.Enemy("Pig",35,4,1,pigSTurns,pigGTurns,[],None,["no loot"])
@@ -223,9 +222,9 @@ def levelUp(player,hp,attack,defense,AP):
     player.maxAP += AP
     player.AP = player.maxAP
     print("Max AP + " + str(AP))
-UI.clear()
+UIModule.clear()
 levelUp(SaveOne,20,4,1,1)
-UI.wait()
+UIModule.wait()
 
 #Chapter 3
 
@@ -245,7 +244,7 @@ def secondUpgrade(player):
             description = ("Double Eviscerate - Increase enemy's bleed level by 2.")
         else:
             description = ("Shred - Increase enemy's bleed level by 1. Each level deals 2 damage per turn.")
-        print(("\n1)Equip Orc's Sword\n%s" % description))
+        print(("\n1)EqUIModulep Orc's Sword\n%s" % description))
         
         if "Heal" in player.abilities:
             description = ("Rejuvinate - Heal all HP")
@@ -274,9 +273,9 @@ def secondUpgrade(player):
                 player.abilities[player.abilities.index("Strengthen")] = "Bellow"
             else:
                 player.abilities.append("Strengthen")
-        UI.clear()
+        UIModule.clear()
         continue
-UI.clear()
+UIModule.clear()
 secondUpgrade(SaveOne)
 #Chapter 4
 slothSTurns = [6,15,18,23,26,30,35,38,41,42,43,44,45]
@@ -285,7 +284,7 @@ slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
 SavageSloth = ClassFile.enemy("Savage Sloth", 100, 10, 1,
 slothSTurns, slothGTurns, slothDTurns,"Shred",["no loot"])
 battle(SaveOne, SavageSloth)
-UI.clear()
+UIModule.clear()
 
 levelUp(SaveOne,55,3,2,1)
 
@@ -300,20 +299,20 @@ for x in range(3,100,5):
 mageDTurns = []
 for x in range(5,100,5):
     mageDTurns.append(x)
-mageEffect = True
+CombatModule.mageEffect = True
 temporalMage = ClassFile.enemy("Temporal Mage",191,13,2,
 mageSTurns, mageGTurns, mageDTurns, "Time Loop", ["no loot"])
-UI.wait()
+UIModule.wait()
 battle(SaveOne, temporalMage)
 
-UI.clear()
+UIModule.clear()
 print((SaveOne.name + " defeated " + temporalMage.name + "!"))
-UI.wait()
+UIModule.wait()
 
-UI.clear()
+UIModule.clear()
 print("Temporal mage class unlocked!!")
-UI.wait()
+UIModule.wait()
 
-UI.clear()
+UIModule.clear()
 print("But not yet...\nComing soon!")
-UI.wait() 
+UIModule.wait() 
