@@ -5,7 +5,7 @@ import AbilityModule
 import UIModule
 import sys
 
-
+AbilityModule.instantiateAbilities()
 print("*********\n*Amalgam*\n*********")
 UIModule.wait()
 

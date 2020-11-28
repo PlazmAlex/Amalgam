@@ -57,6 +57,7 @@ class battle:
                 enemy.debuff = True
                 enemy.vulnerable = True
             #-------------------
+
             #Time Loop Check
             #if player.timeLoop == 0:  
             print("Enter number to select battle option\n\n")  
@@ -68,6 +69,7 @@ class battle:
             for x in player.currentOptions:
                 if player.timeLoop != 0:
                     #only show players last choice as an available option
+                    #choice will be assigned before it is referenced here
                     if x != player.currentOptions[int(choice)-1]:
                         continue
                 print((str(n) + ") " + x))
