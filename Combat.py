@@ -21,9 +21,9 @@ class battle:
         if damage <= 0:
             damage = 1
         defender.hp = defender.hp - damage
-        clear()
+        main.clear()
         print((critical + devestate + attacker.name + " dealt " + str(damage) + " damage to " + defender.name + "!"))
-        wait()
+        main.wait()
         if defender.hp < 0:
             defender.hp = 0
 
