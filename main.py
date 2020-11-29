@@ -5,7 +5,7 @@ import AbilityModule
 import UIModule
 import sys
 
-#Would be nice if I could move these assignments somewhere else, but this is fine for noe
+#Would be nice if I could move these assignments somewhere else, but this is fine for now
 shred = AbilityModule.Ability("Shred","bleedLevel", "+", 1, None, True, "opponent", " has been shredded!")
 doubleEviscerate = AbilityModule.Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent", " has been torn apart!")
 heal = AbilityModule.Ability("Heal", "maxhp", "*", .7, None, False, "user", " healed!")
