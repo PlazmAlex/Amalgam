@@ -6,12 +6,18 @@ import UIModule
 import sys
 
 #Would be nice if I could move these assignments somewhere else, but this is fine for now
-shred = AbilityModule.Ability("Shred","bleedLevel", "+", 1, None, True, "opponent", " has been shredded!")
-doubleEviscerate = AbilityModule.Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent", " has been torn apart!")
-heal = AbilityModule.Ability("Heal", "maxhp", "*", .7, None, False, "user", " healed!")
-rejuvinate = AbilityModule.Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user", " feels rejuvinated!")
-strengthen = AbilityModule.Ability("Strengthen", "attack", "+", 2, None, False, "user", " grew stronger!")
-bellow = AbilityModule.Ability("Bellow", "attack", "+", 3, None, False, "user", " ROARED!")
+shred = AbilityModule.Ability("Shred","bleedLevel", "+", 1, None, True, "opponent",
+" has been shredded!","Increase enemy's bleed level by 1. Each level deals 2 damage per turn.")
+doubleEviscerate = AbilityModule.Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent",
+" has been torn apart!","Increase enemy's bleed level by 2.")
+heal = AbilityModule.Ability("Heal", "maxhp", "*", .7, None, False, "user",
+" healed!", "Restore 70% of max HP.")
+rejuvinate = AbilityModule.Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user",
+" feels rejuvinated!", "Heal all HP")
+strengthen = AbilityModule.Ability("Strengthen", "attack", "+", 2, None, False, "user",
+" grew stronger!", "Buff attack by 2 until end of battle")
+bellow = AbilityModule.Ability("Bellow", "attack", "+", 3, None, False, "user",
+" ROARED!", "Buff attack by 3 until end of battle.")
     #timeLoop = Ability("Time Loop")
 
 print("*********\n*Amalgam*\n*********")
@@ -46,9 +52,7 @@ def initialize_game():
     else:
         initialize_game()
 #add these to the constructor
-SaveOne.abilities.append(shred)
-SaveOne.abilities.append(heal)
-SaveOne.abilities.append(strengthen)
+
 
 def timeLoopE(player,enemy):
     player.timeLoop += 3
@@ -60,7 +64,9 @@ def timeLoopE(player,enemy):
 
 UIModule.clear()
 initialize_game()
-
+SaveOne.abilities.append(shred)
+SaveOne.abilities.append(heal)
+SaveOne.abilities.append(strengthen)
 
 #CHAPTER 1
 UIModule.clear()
@@ -74,24 +80,7 @@ print("A rat seeks to claim your newfound mortality.")
 UIModule.wait()
 Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["no loot"])
 CombatModule.battle(SaveOne, Rat)
-
-def abilityUpgrade(player,abilities,enemy):
-    response = 0
-    responseBank = []
-    n = 1
-    while response not in responseBank:
-        for ability in abilities:
-            responseBank.append(str(n))
-            print(enemy.name + " defeated! Choose an ability!")
-            print("\n" + n + ")" + enemy.loot[n] + "\n" + ability.name + " - " + ability.description)
-            n += 1
-            continue
-        response = input()
-        UIModule.clear()
-    player.abilities.append(abilities[int(response)-1])
-UIModule.clear()
-
-
+AbilityModule.abilityUpgrade(SaveOne, [shred, heal, strengthen], Rat)
 
 #Chapter 2
 UIModule.clear()
@@ -99,7 +88,7 @@ print("A wild Pig appears!")
 UIModule.wait()
 pigSTurns = [2,7,8,10,12,16,20]
 pigGTurns = []
-Pig = ClassFile.Enemy("Pig",35,4,1,pigSTurns,pigGTurns,[],None,["no loot"])
+Pig = CharacterModule.Enemy("Pig",35,4,1,pigSTurns,pigGTurns,[],None,["no loot"])
 CombatModule.battle(SaveOne, Pig)
 
 def levelUp(player,hp,attack,defense,AP):
@@ -125,11 +114,11 @@ levelUp(SaveOne,20,4,1,1)
 UIModule.wait()
 
 #Chapter 3
-
+"""
 orcSTurns = [2,7,13,15,16,17]
 orcGTurns = [3,4,8,9,14]
-Orc = ClassFile.enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],None,["no loot"])
-battle(SaveOne, Orc)
+Orc = CharacterModule.Enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],None,["no loot"])
+CombatModule.battle(SaveOne, Orc)
 
 
 def secondUpgrade(player):
@@ -214,3 +203,4 @@ UIModule.wait()
 UIModule.clear()
 print("But not yet...\nComing soon!")
 UIModule.wait() 
+"""

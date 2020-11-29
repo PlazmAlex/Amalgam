@@ -1,28 +1,17 @@
 import operator
 import UIModule
 class Ability:
-    def __init__(self, name, effect, modifier, magnitude, duration, guardable, target, flavor):
+    def __init__(self, name, effect, modifier, magnitude, duration, guardable, target, flavor,description):
         self.name = name
         self.effect = effect        
-        self.modifiers = modifiers
+        self.modifier = modifier
         self.magnitude = magnitude
         self.duration = duration
         self.guardable = guardable
         self.target = target
+        self.description = description
+        self.flavor = flavor
 
-def instantiateAbilities():
-    shred = Ability("Shred","bleedLevel", "+", 1, None, True, "opponent", " has been shredded!")
-    Ability.abilities.append(shred)
-    doubleEviscerate = Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent", " has been torn apart!")
-    Ability.abilities.append(doubleEviscerate)
-    heal = Ability("Heal", "maxhp", "*", .7, None, False, "user", " healed!")
-    Ability.abilities.append(heal)
-    rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user", " feels rejuvinated!")
-    Ability.abilities.append(rejuvinate)
-    strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user", " grew stronger!")
-    Ability.abilities.append(strengthen)
-    bellow = Ability("Bellow", "attack", "+", 3, None, False, "user", " ROARED!")
-    Ability.abilities.append(bellow)
     #timeLoop = Ability("Time Loop")
 
 def useAbility(ability, user, opponent):
@@ -38,13 +27,15 @@ def useAbility(ability, user, opponent):
     #Pull information from ability object
     statName = ability.effect
     targetStat = (getattr(target, ability.effect))
-    newStat = modifiers[ability.modifier](targetStat, ability.magnitude)
+    newStat = operators[ability.modifier](targetStat, ability.magnitude)
     statChange = newStat - targetStat
     #---
-
+    UIModule.wait
     #Healing detour
     #needed to alter how healing is handled since it's calculated based on max value first
     if ability.effect == "maxhp":
+        print("hp bug")
+        UIModule.wait()
         targetStat = target.hp
         statName = "hp"
         #Prevent healing above maxHP
@@ -56,10 +47,11 @@ def useAbility(ability, user, opponent):
         #Display changes 
         targetStat += statChange
         UIModule.clear
+        #WHY IS THIS NOT PRINTING
         print(user.name + ability.flavor)
         UIModule.wait
         UIModule.clear
-        print(statName.Title() + " + " + statChange)
+        print(statName.title() + " + " + str(statChange))
         UIModule.wait
         if ability.duration != None:
             #Track ability effects in character class
@@ -70,7 +62,7 @@ def useAbility(ability, user, opponent):
     user.lastAbilityUsed[0] = ability
     user.AP -= 1
 
-modifiers = {
+operators = {
     "+" : operator.add,
     "-" : operator.sub,
     "*" : operator.mul,
@@ -91,7 +83,7 @@ def displayAbilities(player, enemy):
         UIModule.clear()
         n = 1
         for x in player.abilities:
-            print((str(n) + ") " + x))
+            print((str(n) + ") " + x.name))
             n = n + 1
         print((str(n) + ") " + "Return"))
         choice = input()
@@ -103,4 +95,21 @@ def displayAbilities(player, enemy):
         UIModule.wait()
         return
     else:
+        print("calling useAbility")
         useAbility(player.abilities[int(choice)-1], player, enemy)
+
+def abilityUpgrade(player,abilities,enemy):
+    response = 0
+    responseBank = []
+    n = 1
+    while response not in responseBank:
+        for ability in abilities:
+            responseBank.append(str(n))
+            print(enemy.name + " defeated! Choose an ability!")
+            print("\n" + str(n) + ")" + enemy.loot[n] + "\n" + ability.name + " - " + ability.description)
+            n += 1
+            continue
+        response = input()
+        UIModule.clear()
+    player.abilities.append(abilities[int(response)-1])
+UIModule.clear()
