@@ -6,5 +6,4 @@ def clear():
         os.system('cls')
 
 class Input:
-    def __init__(self):
-        pass
+    pass

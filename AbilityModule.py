@@ -9,14 +9,20 @@ class Ability:
         self.duration = duration
         self.guardable = guardable
         self.target = target
-    
+
 def instantiateAbilities():
     shred = Ability("Shred","bleedLevel", "+", 1, None, True, "opponent", " has been shredded!")
+    Ability.abilities.append(shred)
     doubleEviscerate = Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent", " has been torn apart!")
+    Ability.abilities.append(doubleEviscerate)
     heal = Ability("Heal", "maxhp", "*", .7, None, False, "user", " healed!")
+    Ability.abilities.append(heal)
     rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user", " feels rejuvinated!")
-    strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user", " grew stronger!")  
+    Ability.abilities.append(rejuvinate)
+    strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user", " grew stronger!")
+    Ability.abilities.append(strengthen)
     bellow = Ability("Bellow", "attack", "+", 3, None, False, "user", " ROARED!")
+    Ability.abilities.append(bellow)
     #timeLoop = Ability("Time Loop")
 
 def useAbility(ability, user, opponent):
@@ -24,6 +30,9 @@ def useAbility(ability, user, opponent):
     if ability.guardable and target.guard:
         UIModule.clear()
         print(target.name + " guarded the ability!")
+        user.abilityUsed = True
+        user.lastAbilityUsed[0] = ability
+        user.AP -= 1
         UIModule.wait()
         return   
     #Pull information from ability object
@@ -57,6 +66,9 @@ def useAbility(ability, user, opponent):
             target.statEffects.append(statName)
             target.statChanges.append(statChange)
             target.statDuration.append(ability.duration)
+    user.abilityUsed = True
+    user.lastAbilityUsed[0] = ability
+    user.AP -= 1
 
 modifiers = {
     "+" : operator.add,
@@ -64,3 +76,31 @@ modifiers = {
     "*" : operator.mul,
     "/" : operator.floordiv
     }
+
+def displayAbilities(player, enemy):
+    if len(player.abilities) < 1:
+        UIModule.clear()
+        print ("No Abilities")
+        UIModule.wait()
+        return
+    choice = ""
+    options = []
+    for x in range(1,(len(player.abilities)+2)):
+        options.append(str(x))
+    while (choice not in options):
+        UIModule.clear()
+        n = 1
+        for x in player.abilities:
+            print((str(n) + ") " + x))
+            n = n + 1
+        print((str(n) + ") " + "Return"))
+        choice = input()
+    if int(choice) == len(player.abilities) + 1:
+        return
+    if player.AP < 1:
+        UIModule.clear()
+        print("No ability points left")
+        UIModule.wait()
+        return
+    else:
+        useAbility(player.abilities[int(choice)-1], player, enemy)

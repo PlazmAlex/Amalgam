@@ -23,7 +23,7 @@ class SaveFile:
         self.statChanges = []
         self.statDuration = []
         #===
-        self.abilities = ["Shred","Heal","Strengthen"]
+        self.abilities = []
         self.currentOptions = ["Attack", "Abilities", "Guard"] 
         self.lastAbilityUsed = [""]
 class Enemy:

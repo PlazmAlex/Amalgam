@@ -5,7 +5,15 @@ import AbilityModule
 import UIModule
 import sys
 
-AbilityModule.instantiateAbilities()
+#Would be nice if I could move these assignments somewhere else, but this is fine for noe
+shred = AbilityModule.Ability("Shred","bleedLevel", "+", 1, None, True, "opponent", " has been shredded!")
+doubleEviscerate = AbilityModule.Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent", " has been torn apart!")
+heal = AbilityModule.Ability("Heal", "maxhp", "*", .7, None, False, "user", " healed!")
+rejuvinate = AbilityModule.Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user", " feels rejuvinated!")
+strengthen = AbilityModule.Ability("Strengthen", "attack", "+", 2, None, False, "user", " grew stronger!")
+bellow = AbilityModule.Ability("Bellow", "attack", "+", 3, None, False, "user", " ROARED!")
+    #timeLoop = Ability("Time Loop")
+
 print("*********\n*Amalgam*\n*********")
 UIModule.wait()
 
@@ -37,128 +45,18 @@ def initialize_game():
         UIModule.wait()
     else:
         initialize_game()
-        
-def shred(player, enemy):
-    if enemy.guard == True:
-        UIModule.clear()
-        print((enemy.name + " guarded!\n"))
-        UIModule.wait()
-        UIModule.clear()
-        return
-    enemy.bleedLevel += 1
-    UIModule.clear()
-    print((enemy.name + " has been shredded!"))
-    UIModule.wait()
-def shredE(player, enemy):
-    if player.guard == True:
-        UIModule.clear()
-        print((player.name + " guarded!\n"))
-        UIModule.wait()
-        UIModule.clear()
-        return
-    player.bleedLevel += 1
-    UIModule.clear()
-    print((player.name + " has been shredded!"))
-    UIModule.wait()
-def doubleeviscerate(player,enemy):
-    if enemy.guard == True:
-        UIModule.clear()
-        print((enemy.name + " guarded!\n"))
-        UIModule.wait()
-        UIModule.clear()
-        return
-    enemy.bleedLevel += 2
-    UIModule.clear()
-    print((enemy.name + " was torn apart!"))
-    UIModule.wait()    
-def useAbilityEnemy(player,enemy):
-    enemyAbilityLib = {
-        "Shred": shredE,
-        "Time Loop" : timeLoopE
-    }
-    enemyAbilityLib.get(enemy.ability)(player,enemy)
-def heal(player, enemy):
-    UIModule.clear()
-    heal = int(round(player.maxhp * 0.70) + 1)
-    player.hp = player.hp + heal
-    print((player.name + " healed " + str(heal) + " HP!"))
-    UIModule.wait()
-    if player.hp > player.maxhp:
-        player.hp = player.maxhp
-def rejuvinate(player,enemy):
-    UIModule.clear()
-    heal = int(player.maxhp)
-    player.hp = player.hp + heal
-    print((player.name + " restored " + "all" + " HP!"))
-    UIModule.wait()
-    if player.hp > player.maxhp:
-        player.hp = player.maxhp
-def strengthen(player, enemy):
-    player.attack = player.attack + 2
-    UIModule.clear()
-    print((player.name + " grew stronger!\n\nAttack + 2"))
-    UIModule.wait()
-def bellow(player, enemy):
-    player.attack = player.attack + 3
-    UIModule.clear()
-    print((player.name + " ROARED!!\n\nAttack + 3"))
-    UIModule.wait()
+#add these to the constructor
+SaveOne.abilities.append(shred)
+SaveOne.abilities.append(heal)
+SaveOne.abilities.append(strengthen)
+
 def timeLoopE(player,enemy):
     player.timeLoop += 3
     UIModule.clear()
     print((enemy.name + " put " + player.name + " in a time loop for 2 turns!"))
     UIModule.wait()
-def useAbility(ability, player, enemy):
-    abilityLib = {
-        "Shred": shred,
-        "Heal": heal,
-        "Strengthen": strengthen,
-        "Double Eviscerate": doubleeviscerate,
-        "Rejuvinate": rejuvinate,
-        "Bellow": bellow
-    }
-    abilityLib.get(ability)(player, enemy)
-    player.abilityUsed = True
-    player.lastAbilityUsed[0] = ability
-    player.AP -= 1
-def getAbilities(player, enemy):
-    if len(player.abilities) < 1:
-        UIModule.clear()
-        print ("No Abilities")
-        UIModule.wait()
-        return
-    choice = ""
-    options = []
-    for x in range(1,(len(player.abilities)+2)):
-        options.append(str(x))
-    while (choice not in options):
-        UIModule.clear()
-        n = 1
-        for x in player.abilities:
-            print((str(n) + ") " + x))
-            n = n + 1
-        print((str(n) + ") " + "Return"))
-        choice = input()
-    if int(choice) == len(player.abilities) + 1:
-        return
-    if player.AP < 1:
-        UIModule.clear()
-        print("No ability points left")
-        UIModule.wait()
-        return
-    else:
-        #player.abilityUses[int(choice)-1] = player.abilityUses[int(choice)-1] - 1 THIS IS FOR SUBTRACTING A USE FROM INDIVIDUAL ABILITIES
-        useAbility(player.abilities[int(choice)-1], player, enemy)
 
-def resethp(player, enemy):
-    player.hp = player.maxhp
-    enemy.hp = enemy.maxhp
-def resetdefense(player, enemy):
-    player.defense = player.maxdefense
-    enemy.defense = enemy.maxdefense
-def resetattack(player, enemy):
-    player.attack = player.maxattack
-    enemy.attack = enemy.maxattack
+
 
 UIModule.clear()
 initialize_game()
@@ -202,7 +100,7 @@ UIModule.wait()
 pigSTurns = [2,7,8,10,12,16,20]
 pigGTurns = []
 Pig = ClassFile.Enemy("Pig",35,4,1,pigSTurns,pigGTurns,[],None,["no loot"])
-battle(SaveOne, Pig)
+CombatModule.battle(SaveOne, Pig)
 
 def levelUp(player,hp,attack,defense,AP):
     print("Pig Defeated! Level Up!")

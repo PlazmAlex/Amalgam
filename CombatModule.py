@@ -1,4 +1,6 @@
 import UIModule
+import AbilityModule
+import sys
 #mage effect is a bad implementation.
 #Need to create a class that handles turn based events independent of enemy
 mageEffect = False
@@ -117,11 +119,11 @@ class battle:
             #-------------
             #Menu Choice
             if choice == str(player.currentOptions.index("Attack")+1):
-                dealDamage(player, enemy)
+                battle.dealDamage(self, player, enemy)
             elif choice == str(player.currentOptions.index("Abilities")+1):
                 if player.timeLoop != 0:
                     player.AP += 1
-                    useAbility(player.lastAbilityUsed[0], player, enemy)
+                    AbilityModule.useAbility(player.lastAbilityUsed[0], player, enemy)
                     player.canUseAbilities = True
                 if player.canUseAbilities == False:
                     UIModule.clear()
@@ -129,7 +131,7 @@ class battle:
                     UIModule.wait()
                     continue
                 if player.timeLoop == 0:
-                    getAbilities(player, enemy)
+                    AbilityModule.displayAbilities(player, enemy)
                 if player.abilityUsed == False:
                     continue 
                 player.abilityUsed = False
@@ -140,9 +142,9 @@ class battle:
             #--------------
             #Enemy Action
             if enemy.hp > 0 and enemy.guard == False and enemy.debuff == False:
-                dealDamage(enemy, player)
+                battle.dealDamage(self, enemy, player)
             elif enemy.debuff == True:
-                useAbilityEnemy(player, enemy)
+                AbilityModule.useAbility(enemy.ability,enemy, player)
                 
             #------------
             #End of Turn effects
@@ -181,16 +183,20 @@ class battle:
         player.lastAbilityUsed = [""]
         player.bleedLevel = 0
         enemy.bleedLevel = 0
-        resetattack(player, enemy)
-        resetdefense(player, enemy)
+        player.attack = player.maxattack
+        enemy.attack = enemy.maxattack
+        player.defense = player.maxdefense
+        enemy.defense = enemy.maxdefense
         player.AP = player.maxAP
         if player.hp > 0:
-            resethp(player, enemy)
+            player.hp = player.maxhp
+            enemy.hp = enemy.maxhp
             UIModule.clear()
             print((player.name + " survived!"))
             UIModule.wait()
         else:
-            resethp(player, enemy)
+            player.hp = player.maxhp
+            enemy.hp = enemy.maxhp
             UIModule.clear()
             print((player.name + " died!"))#Need lose function
             UIModule.wait()
