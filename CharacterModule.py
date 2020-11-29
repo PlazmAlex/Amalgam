@@ -43,6 +43,9 @@ class Enemy:
         self.superAttack = False
         self.vulnerable = False
         self.bleedLevel = 0
+        self.statEffects = []
+        self.statChanges = []
+        self.statDuration = []
         #---
         #Turn data
         self.superTurn = sTurns

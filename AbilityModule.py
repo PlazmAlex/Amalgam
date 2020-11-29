@@ -26,28 +26,34 @@ def useAbility(ability, user, opponent):
         print(target.name + " guarded the ability!")
         UIModule.wait()
         return   
-
+    #Pull information from ability object
     statName = ability.effect
     targetStat = (getattr(target, ability.effect))
     newStat = modifiers[ability.modifier](targetStat, ability.magnitude)
     statChange = newStat - targetStat
+    #---
+
+    #Healing detour
     #needed to alter how healing is handled since it's calculated based on max value first
     if ability.effect == "maxhp":
         targetStat = target.hp
         statName = "hp"
+        #Prevent healing above maxHP
         if target.hp + newStat > target.maxhp:
             statChange = target.hp + newStat - target.maxhp
         else:
             statChange = newStat 
     else: 
+        #Display changes 
+        targetStat += statChange
         UIModule.clear
         print(user.name + ability.flavor)
         UIModule.wait
-        targetStat += statChange
         UIModule.clear
         print(statName.Title() + " + " + statChange)
         UIModule.wait
         if ability.duration != None:
+            #Track ability effects in character class
             target.statEffects.append(statName)
             target.statChanges.append(statChange)
             target.statDuration.append(ability.duration)
