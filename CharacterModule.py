@@ -19,6 +19,9 @@ class SaveFile:
         self.vulnerable = False
         self.canUseAbilities = True
         self.timeLoop = 0
+        self.statEffects = []
+        self.statChanges = []
+        self.statDuration = []
         #===
         self.abilities = ["Shred","Heal","Strengthen"]
         self.currentOptions = ["Attack", "Abilities", "Guard"] 

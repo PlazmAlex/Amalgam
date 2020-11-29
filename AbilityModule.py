@@ -1,46 +1,60 @@
 import operator
+import UIModule
 class Ability:
-    def __init__(self, name, effect, modifier, magnitude, duration, gaurdable, target):
+    def __init__(self, name, effect, modifier, magnitude, duration, guardable, target, flavor):
         self.name = name
-        self.effects = effects
+        self.effect = effect        
         self.modifiers = modifiers
         self.magnitude = magnitude
         self.duration = duration
-        self.gaurdable = gaurdable
+        self.guardable = guardable
         self.target = target
     
 def instantiateAbilities():
-    shred = Ability("Shred","bleedLevel", "+", 1, None, True, "opponent")
-    doubleEviscerate = Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent")
-    heal = Ability("Heal", "maxhp", "*", .7, None, False, "user")
-    rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user")
-    strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user")  
-    bellow = Ability("Bellow", "attack", "+", 3, None, False, "user")
+    shred = Ability("Shred","bleedLevel", "+", 1, None, True, "opponent", " has been shredded!")
+    doubleEviscerate = Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent", " has been torn apart!")
+    heal = Ability("Heal", "maxhp", "*", .7, None, False, "user", " healed!")
+    rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user", " feels rejuvinated!")
+    strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user", " grew stronger!")  
+    bellow = Ability("Bellow", "attack", "+", 3, None, False, "user", " ROARED!")
     #timeLoop = Ability("Time Loop")
 
 def useAbility(ability, user, opponent):
-    #target could possibly be choosable, need to accomodate that if it's implemented
-    target = user if ability.target == "user" else opponent
-        targetStat = (getattr(target, ability.effect)
-        newStat = modifiers[ability.modifier(targetStat, ability.magnitude)
-        #without much more breadth added to the stat system max hp cannot be altered with abilities
-        if ability.effect[ == "maxhp":
-            targetStat = target.hp
-            if target.hp + newStat > target.maxhp:
-                #INCOMPLETE FIX SOON STAT CHANGES NOT APPLIES AND NOT RECORED IN STATCHANGES in the case of heal
-                statChange = target.hp + newStat - target.maxhp
-                return
-            else:
-                statChange = newStat
-                return
+    target = user if ability.target == "user" else opponent 
+    if ability.guardable and target.guard:
+        UIModule.clear()
+        print(target.name + " guarded the ability!")
+        UIModule.wait()
+        return   
+
+    statName = ability.effect
+    targetStat = (getattr(target, ability.effect))
+    newStat = modifiers[ability.modifier](targetStat, ability.magnitude)
+    statChange = newStat - targetStat
+    #needed to alter how healing is handled since it's calculated based on max value first
+    if ability.effect == "maxhp":
+        targetStat = target.hp
+        statName = "hp"
+        if target.hp + newStat > target.maxhp:
+            statChange = target.hp + newStat - target.maxhp
+        else:
+            statChange = newStat 
+    else: 
+        UIModule.clear
+        print(user.name + ability.flavor)
+        UIModule.wait
+        targetStat += statChange
+        UIModule.clear
+        print(statName.Title() + " + " + statChange)
+        UIModule.wait
         if ability.duration != None:
-            statChange = newStat - targetStat
+            target.statEffects.append(statName)
             target.statChanges.append(statChange)
-            target.duration.append(ability.duration)
-modifiers = 
-{
+            target.statDuration.append(ability.duration)
+
+modifiers = {
     "+" : operator.add,
     "-" : operator.sub,
     "*" : operator.mul,
     "/" : operator.floordiv
-}
+    }
