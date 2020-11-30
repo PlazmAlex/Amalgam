@@ -14,8 +14,21 @@ class Ability:
 
     #timeLoop = Ability("Time Loop")
 
+shred = Ability("Shred","bleedLevel", "+", 1, None, True, "opponent",
+" has been shredded!","Increase enemy's bleed level by 1. Each level deals 2 damage per turn.")
+doubleEviscerate = Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent",
+" has been torn apart!","Increase enemy's bleed level by 2.")
+heal = Ability("Heal", "maxhp", "*", .7, None, False, "user",
+" healed!", "Restore 70% of max HP.")
+rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user",
+" feels rejuvinated!", "Heal all HP")
+strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
+" grew stronger!", "Buff attack by 2 until end of battle")
+bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",
+" ROARED!", "Buff attack by 3 until end of battle.")
+
 def useAbility(ability, user, opponent):
-    target = user if ability.target == "user" else opponent 
+    target = user if ability.target == "user" else opponent
     if ability.guardable and target.guard:
         UIModule.clear()
         print(target.name + " guarded the ability!")
@@ -26,38 +39,31 @@ def useAbility(ability, user, opponent):
         return   
     #Pull information from ability object
     statName = ability.effect
-    targetStat = (getattr(target, ability.effect))
-    newStat = operators[ability.modifier](targetStat, ability.magnitude)
+    targetStat = getattr(target, statName)
+    newStat = int(operators[ability.modifier](targetStat, ability.magnitude))
     statChange = newStat - targetStat
     #---
-    UIModule.wait
     #Healing detour
     #needed to alter how healing is handled since it's calculated based on max value first
     if ability.effect == "maxhp":
-        print("hp bug")
-        UIModule.wait()
-        targetStat = target.hp
         statName = "hp"
+        targetStat = target.hp
         #Prevent healing above maxHP
         if target.hp + newStat > target.maxhp:
-            statChange = target.hp + newStat - target.maxhp
+            statChange = (target.maxhp - target.hp)
         else:
             statChange = newStat 
-    else: 
-        #Display changes 
-        targetStat += statChange
-        UIModule.clear
-        #WHY IS THIS NOT PRINTING
-        print(user.name + ability.flavor)
-        UIModule.wait
-        UIModule.clear
-        print(statName.title() + " + " + str(statChange))
-        UIModule.wait
-        if ability.duration != None:
-            #Track ability effects in character class
-            target.statEffects.append(statName)
-            target.statChanges.append(statChange)
-            target.statDuration.append(ability.duration)
+    #Display and implement effects 
+    setattr(target, statName, targetStat + statChange)
+    UIModule.clear()
+    print(target.name + ability.flavor)
+    print(statName.title() + " + " + str(statChange))
+    UIModule.wait()
+    if ability.duration != None:
+        #Track ability effects in character class
+        target.statEffects.append(statName)
+        target.statChanges.append(statChange)
+        target.statDuration.append(ability.duration)
     user.abilityUsed = True
     user.lastAbilityUsed[0] = ability
     user.AP -= 1
@@ -95,21 +101,33 @@ def displayAbilities(player, enemy):
         UIModule.wait()
         return
     else:
-        print("calling useAbility")
         useAbility(player.abilities[int(choice)-1], player, enemy)
 
 def abilityUpgrade(player,abilities,enemy):
     response = 0
     responseBank = []
-    n = 1
     while response not in responseBank:
+        n = 1
+        print(enemy.name + " defeated! Choose an ability!")
         for ability in abilities:
+            if ability in player.abilities:
+                ability = abilityPlus(ability)
             responseBank.append(str(n))
-            print(enemy.name + " defeated! Choose an ability!")
-            print("\n" + str(n) + ")" + enemy.loot[n] + "\n" + ability.name + " - " + ability.description)
+            print("\n" + str(n) + ")" + enemy.loot[n-1] + "\n" + ability.name + " - " + ability.description)
             n += 1
-            continue
         response = input()
         UIModule.clear()
-    player.abilities.append(abilities[int(response)-1])
+    choice = abilities[int(response)-1]
+    if choice in player.abilities:
+        player.abilities[player.abilities.index(choice)] = abilityPlus(choice)
+    else:
+        player.abilities.append(choice)
 UIModule.clear()
+
+abilityLevelUp = {
+    shred : doubleEviscerate,
+    heal : rejuvinate,
+    strengthen : bellow
+}
+def abilityPlus(ability):
+    return abilityLevelUp.get(ability, ability)

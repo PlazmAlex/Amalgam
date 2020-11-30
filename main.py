@@ -6,18 +6,7 @@ import UIModule
 import sys
 
 #Would be nice if I could move these assignments somewhere else, but this is fine for now
-shred = AbilityModule.Ability("Shred","bleedLevel", "+", 1, None, True, "opponent",
-" has been shredded!","Increase enemy's bleed level by 1. Each level deals 2 damage per turn.")
-doubleEviscerate = AbilityModule.Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent",
-" has been torn apart!","Increase enemy's bleed level by 2.")
-heal = AbilityModule.Ability("Heal", "maxhp", "*", .7, None, False, "user",
-" healed!", "Restore 70% of max HP.")
-rejuvinate = AbilityModule.Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user",
-" feels rejuvinated!", "Heal all HP")
-strengthen = AbilityModule.Ability("Strengthen", "attack", "+", 2, None, False, "user",
-" grew stronger!", "Buff attack by 2 until end of battle")
-bellow = AbilityModule.Ability("Bellow", "attack", "+", 3, None, False, "user",
-" ROARED!", "Buff attack by 3 until end of battle.")
+
     #timeLoop = Ability("Time Loop")
 
 print("*********\n*Amalgam*\n*********")
@@ -26,7 +15,6 @@ UIModule.wait()
 def initialize_game():
     UIModule.clear()
     response = input("Enter number to select menu option\n\n1) New Run\n2) Class\n")
-    UIModule.wait()
     
     if response == "2":
         print("No other classes unlocked")
@@ -51,7 +39,7 @@ def initialize_game():
         UIModule.wait()
     else:
         initialize_game()
-#add these to the constructor
+
 
 
 def timeLoopE(player,enemy):
@@ -59,15 +47,15 @@ def timeLoopE(player,enemy):
     UIModule.clear()
     print((enemy.name + " put " + player.name + " in a time loop for 2 turns!"))
     UIModule.wait()
-
-
-
 UIModule.clear()
 initialize_game()
-SaveOne.abilities.append(shred)
-SaveOne.abilities.append(heal)
-SaveOne.abilities.append(strengthen)
 
+#all these need to end up in the ability class later
+SaveOne.abilities.append(AbilityModule.shred)
+SaveOne.abilities.append(AbilityModule.heal)
+SaveOne.abilities.append(AbilityModule.strengthen)
+
+#===============================
 #CHAPTER 1
 UIModule.clear()
 print((SaveOne.name + " breaks from of his egg to breathe his first breath."))
@@ -78,9 +66,10 @@ UIModule.wait()
 UIModule.clear()
 print("A rat seeks to claim your newfound mortality.")
 UIModule.wait()
-Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["no loot"])
+Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["Equip Rat's teeth", "Absorb Rat's poison", "Ingest Rat's heart"])
 CombatModule.battle(SaveOne, Rat)
-AbilityModule.abilityUpgrade(SaveOne, [shred, heal, strengthen], Rat)
+UIModule.clear()
+AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Rat)
 
 #Chapter 2
 UIModule.clear()
@@ -88,7 +77,7 @@ print("A wild Pig appears!")
 UIModule.wait()
 pigSTurns = [2,7,8,10,12,16,20]
 pigGTurns = []
-Pig = CharacterModule.Enemy("Pig",35,4,1,pigSTurns,pigGTurns,[],None,["no loot"])
+Pig = CharacterModule.Enemy("Pig",30,4,1,pigSTurns,pigGTurns,[],None,["no loot"])
 CombatModule.battle(SaveOne, Pig)
 
 def levelUp(player,hp,attack,defense,AP):
@@ -114,13 +103,13 @@ levelUp(SaveOne,20,4,1,1)
 UIModule.wait()
 
 #Chapter 3
-"""
+
 orcSTurns = [2,7,13,15,16,17]
 orcGTurns = [3,4,8,9,14]
 Orc = CharacterModule.Enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],None,["no loot"])
 CombatModule.battle(SaveOne, Orc)
 
-
+"""
 def secondUpgrade(player):
     response = 0
     responseBank = ["1","2","3"]
@@ -163,14 +152,16 @@ def secondUpgrade(player):
         UIModule.clear()
         continue
 UIModule.clear()
+
 secondUpgrade(SaveOne)
+"""
 #Chapter 4
 slothSTurns = [6,15,18,23,26,30,35,38,41,42,43,44,45]
 slothGTurns = [4,5,9,14,16,20,21,24,25,31,32,33,34,36,37]
 slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
-SavageSloth = ClassFile.enemy("Savage Sloth", 100, 10, 1,
-slothSTurns, slothGTurns, slothDTurns,"Shred",["no loot"])
-battle(SaveOne, SavageSloth)
+SavageSloth = CharacterModule.Enemy("Savage Sloth", 100, 10, 1,
+slothSTurns, slothGTurns, slothDTurns,AbilityModule.shred,["no loot"])
+CombatModule.battle(SaveOne, SavageSloth)
 UIModule.clear()
 
 levelUp(SaveOne,55,3,2,1)
@@ -187,10 +178,10 @@ mageDTurns = []
 for x in range(5,100,5):
     mageDTurns.append(x)
 CombatModule.mageEffect = True
-temporalMage = ClassFile.enemy("Temporal Mage",191,13,2,
+temporalMage = CharacterModule.Enemy("Temporal Mage",191,13,2,
 mageSTurns, mageGTurns, mageDTurns, "Time Loop", ["no loot"])
 UIModule.wait()
-battle(SaveOne, temporalMage)
+CombatModule.battle(SaveOne, temporalMage)
 
 UIModule.clear()
 print((SaveOne.name + " defeated " + temporalMage.name + "!"))
@@ -203,4 +194,3 @@ UIModule.wait()
 UIModule.clear()
 print("But not yet...\nComing soon!")
 UIModule.wait() 
-"""

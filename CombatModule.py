@@ -145,7 +145,6 @@ def battle(player, enemy):
             dealDamage(enemy, player)
         elif enemy.debuff == True:
             AbilityModule.useAbility(enemy.ability,enemy, player)
-            
         #------------
         #End of Turn effects
         if player.timeLoop > 0:

@@ -53,7 +53,7 @@ class Enemy:
         self.debuffTurn = dTurns
         #---
         self.ability = ability
-        self.loot = []
+        self.loot = loot
         #Loot is a list of strings that describes what is gained...
         #... from defeating this enemy
         #The string will be displayed on the ability upgrade fubction 
