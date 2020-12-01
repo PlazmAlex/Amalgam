@@ -44,6 +44,8 @@ def battle(player, enemy):
             if turn in range(1,100,2):
                 print(("\n!!!!" + enemy.name + " prevents abilities on odd turns!!!!\n"))
                 player.canUseAbilities = False
+        turnCheck(turn, enemy, player)
+        """
         if turn in enemy.superTurn:
             print(("\n!!!" + enemy.name + " is preparing a devastating attack!!!\n\n"))
             enemy.superAttack = True
@@ -58,6 +60,7 @@ def battle(player, enemy):
                 print(("\n!!" + enemy.name + " is going to debuff " + player.name + "!!\n\n"))
             enemy.debuff = True
             enemy.vulnerable = True
+        """
         #-------------------
 
         #Time Loop Check
@@ -200,3 +203,24 @@ def battle(player, enemy):
         print((player.name + " died!"))#Need lose function
         UIModule.wait()
         sys.exit(0)
+
+def turnCheck(turn, enemy, player):
+    vulnerableText = ""
+    turnLists = ["superTurn", "guardTurn", "debuffTurn"]
+    battleIntents = ["superAttack", "guard",  "debuff"]
+    for index,list in enumerate(turnLists, 0):
+        if turn in getattr(enemy, list):
+            intent = battleIntents[index]
+            if intent == "superAttack" or "debuff":
+                #Think of a better way to tie vulnerability to these intentions
+                enemy.vulnerable = True
+                vulnerableText = "\n!!Attack now for critical damage!!\n"
+            setattr(enemy, intent, True)
+            print("\n!!" + enemy.name + " is going to " + intentWarnings[intent] + "!!\n" +
+            vulnerableText)
+intentWarnings = {
+    "superAttack" : "unleash a devestating attack",
+    "guard" : "guard itself",
+    #might want to communicate exactly what ability enemy will use later
+    "debuff" : "inflict a debuff"
+}
