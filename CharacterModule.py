@@ -36,6 +36,7 @@ class Enemy:
         self.maxhp = hp
         self.maxattack = attack
         self.maxdefense = defense
+        self.AP = 100
         #---
         #Battle states
         self.guard = False
@@ -54,6 +55,7 @@ class Enemy:
         #---
         self.ability = ability
         self.loot = loot
+        self.lastAbilityUsed = [""]
         #Loot is a list of strings that describes what is gained...
         #... from defeating this enemy
         #The string will be displayed on the ability upgrade fubction 

@@ -57,6 +57,7 @@ SaveOne.abilities.append(AbilityModule.strengthen)
 
 #===============================
 #CHAPTER 1
+
 UIModule.clear()
 print((SaveOne.name + " breaks from of his egg to breathe his first breath."))
 UIModule.wait()
@@ -67,8 +68,9 @@ UIModule.clear()
 print("A rat seeks to claim your newfound mortality.")
 UIModule.wait()
 Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["Equip Rat's teeth", "Absorb Rat's poison", "Ingest Rat's heart"])
-CombatModule.battle(SaveOne, Rat)
+#CombatModule.battle(SaveOne, Rat)
 UIModule.clear()
+
 AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Rat)
 
 #Chapter 2
@@ -78,7 +80,7 @@ UIModule.wait()
 pigSTurns = [2,7,8,10,12,16,20]
 pigGTurns = []
 Pig = CharacterModule.Enemy("Pig",30,4,1,pigSTurns,pigGTurns,[],None,["no loot"])
-CombatModule.battle(SaveOne, Pig)
+#CombatModule.battle(SaveOne, Pig)
 
 def levelUp(player,hp,attack,defense,AP):
     print("Pig Defeated! Level Up!")
@@ -103,12 +105,12 @@ levelUp(SaveOne,20,4,1,1)
 UIModule.wait()
 
 #Chapter 3
-
+"""
 orcSTurns = [2,7,13,15,16,17]
 orcGTurns = [3,4,8,9,14]
 Orc = CharacterModule.Enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],None,["no loot"])
 CombatModule.battle(SaveOne, Orc)
-
+"""
 """
 def secondUpgrade(player):
     response = 0
