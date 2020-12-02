@@ -1,6 +1,7 @@
 import UIModule
 import AbilityModule
 import sys
+import time
 #mage effect is a bad implementation.
 #Need to create a class that handles turn based events independent of enemy
 mageEffect = False
@@ -67,8 +68,8 @@ def battle(player, enemy):
         #if player.timeLoop == 0:  
          
         print("\n" + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
-        ")  AP (" + str(player.AP) + ") " + playerBleed +
-        "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + enemyBleed +
+        ")  Ability Points (" + str(player.AP) + ") " + UIModule.color.red + playerBleed + UIModule.color.endColor +
+        "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
         "\n")
         n = 1
         print("Enter number to select battle option\n") 
@@ -106,17 +107,17 @@ def battle(player, enemy):
                 #-------------------
                 #Time Loop Check
                 #if player.timeLoop == 0:  
-                print((player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
-                ")  AP (" + str(player.AP) + ") " + playerBleed +
-                "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + enemyBleed +
-                "\n"))
+                print("\n" + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
+                ")  Ability Points (" + str(player.AP) + ") " + UIModule.color.red + playerBleed + UIModule.color.endColor +
+                "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
+                "\n")
                 n = 1
                 print("Enter number to select battle option\n")
                 for x in player.currentOptions:
                     if player.timeLoop != 0:
                         if x != player.currentOptions[int(choice)-1]:
                             continue
-                    print((str(n) + ") " + x))
+                    print(UIModule.color.blue + (str(n) + ") " + x) + UIModule.color.endColor)
                 continue
         else:
             choice = input()
@@ -161,31 +162,35 @@ def battle(player, enemy):
         enemy.guard = False
         enemy.vulnerable = False
         enemy.debuff = False
-        if (player.bleedLevel > 0) and (enemy.hp > 0):   
-            playerBleed = (" BLEED(LV " + str(player.bleedLevel) + ")")
-            player.hp = player.hp - player.bleedLevel * 2
+        if (player.bleed > 0) and (enemy.hp > 0):   
+            playerBleed = (" BLEED( " + str(player.bleed) + " )")
+            player.hp -= player.bleed
             UIModule.clear()
-            print((player.name + " bled for " + str(player.bleedLevel * 2) + " damage!"))
+            print(player.name + " is bleeding!") 
+            input()
+            print("It loses " + str(player.bleed) + " health!")
             UIModule.wait()
             if player.hp <= 0:
                 UIModule.clear()
                 print((player.name + " bled out!"))
                 UIModule.wait()
-        if enemy.bleedLevel > 0:
-            enemyBleed = (" BLEED(LV " + str(enemy.bleedLevel) + ")")
-            enemy.hp = enemy.hp - enemy.bleedLevel * 2
+        if enemy.bleed > 0:
+            enemyBleed = (" BLEED( " + str(enemy.bleed) + " )")
+            enemy.hp -= enemy.bleed
             UIModule.clear()
-            print((enemy.name + " bled for " + str(enemy.bleedLevel * 2) + " damage!"))
+            print(enemy.name + " is bleeding!")
+            input()
+            print("It loses " + str(enemy.bleed) + " health!")
             UIModule.wait()
             if enemy.hp <= 0:
                 UIModule.clear()
-                print((enemy.name + " bled out!"))
+                print(enemy.name + " bled out!")
                 UIModule.wait()
         #-------------
         turn = turn + 1
     player.lastAbilityUsed = [""]
-    player.bleedLevel = 0
-    enemy.bleedLevel = 0
+    player.bleed = 0
+    enemy.bleed = 0
     player.attack = player.maxattack
     enemy.attack = enemy.maxattack
     player.defense = player.maxdefense
@@ -217,8 +222,8 @@ def turnCheck(turn, enemy, player):
                 enemy.vulnerable = True
                 vulnerableText = "\n!!It looks vulnerable to attacks!!\n"
             setattr(enemy, intent, True)
-            print("\n!!" + enemy.name + " is going to " + intentWarnings[intent] + "!!\n" +
-            vulnerableText)
+            print(UIModule.color.yellow + "\n!!" + enemy.name + " is going to " + intentWarnings[intent] + "!!\n" +
+            vulnerableText + UIModule.color.endColor)
 intentWarnings = {
     "superAttack" : "unleash a devestating attack",
     "guard" : "guard itself",

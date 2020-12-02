@@ -14,18 +14,18 @@ class Ability:
 
     #timeLoop = Ability("Time Loop")
 
-shred = Ability("Shred","bleedLevel", "+", 1, None, True, "opponent",
-" has been shredded!","Increase enemy's bleed level by 1. Each level deals 2 damage per turn.")
-doubleEviscerate = Ability("Double Eviscerate", "bleedLevel", "+", 2, None, True, "opponent",
-" has been torn apart!","Increase enemy's bleed level by 2.")
+shred = Ability("Shred","bleed", "+", 1, None, True, "opponent",
+" has been shredded!","Increase enemy's bleed by 2. Each bleed deals 1 damage per turn.")
+doubleEviscerate = Ability("Double Eviscerate", "bleed", "+", 2, None, True, "opponent",
+" has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
 heal = Ability("Heal", "maxhp", "*", .7, None, False, "user",
-" healed!", "Restore 70% of max HP.")
+" healed!", "Restore 70% of your max HP.")
 rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user",
-" feels rejuvinated!", "Heal all HP")
+" feels rejuvinated!", "Heal all your HP")
 strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
-" grew stronger!", "Buff attack by 2 until end of battle")
+" grew stronger!", "Increase your attack power by 2 until end of battle")
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",
-" ROARED!", "Buff attack by 3 until end of battle.")
+" ROARED!", "Increase your attack power by 3 until end of battle.")
 
 def useAbility(ability, user, opponent):
     target = user if ability.target == "user" else opponent
@@ -89,9 +89,9 @@ def displayAbilities(player, enemy):
         UIModule.clear()
         n = 1
         for x in player.abilities:
-            print((str(n) + ") " + x.name))
+            print(str(n) + ") " + x.name + "\n   -" + x.description + "\n")
             n = n + 1
-        print((str(n) + ") " + "Return"))
+        print(UIModule.color.blue + (str(n) + ") " + "Back") + UIModule.color.endColor)
         choice = input()
     if int(choice) == len(player.abilities) + 1:
         return
@@ -113,7 +113,7 @@ def abilityUpgrade(player,abilities,enemy):
             if ability in player.abilities:
                 ability = abilityPlus(ability)
             responseBank.append(str(n))
-            print("\n" + str(n) + ")" + enemy.loot[n-1] + "\n" + ability.name + " - " + ability.description)
+            print("\n" + str(n) + ")" + enemy.loot[n-1] + "\n Gain ability: " + ability.name + " - Use to " + ability.description)
             n += 1
         response = input()
         UIModule.clear()

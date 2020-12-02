@@ -67,7 +67,7 @@ UIModule.wait()
 UIModule.clear()
 print("A rat seeks to claim your newfound mortality.")
 UIModule.wait()
-Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["Equip Rat's teeth", "Absorb Rat's poison", "Ingest Rat's heart"])
+Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12],[],[],None,["Equip Rat's teeth", "Ingest Rat's heart", "Absorb Rat's muscles"])
 #CombatModule.battle(SaveOne, Rat)
 UIModule.clear()
 

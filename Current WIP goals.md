@@ -6,10 +6,7 @@ Need to implement a way to have abilities with special series of effects:
     if not how would the new ablity class function
     what are its variables and methods
 
-DONE Need to display enemy actions using a function rather than individually typing them all
-    WIP if possible make them red/move around to draw more attention
-    DONE communicate if enemy is vulnerable to attacks
-
-Need to display ability descriptions
-    put in ability screen or in another menu?
-
+Communicate what ability an enemy will use
+    Can enemys have more than one ablitiy?
+    if so how to determine which one they will use
+    how to communicate what the ability will do?

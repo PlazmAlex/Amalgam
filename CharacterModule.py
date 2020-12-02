@@ -15,7 +15,7 @@ class SaveFile:
         self.abilityUsed = False
         self.guard = False
         self.superAttack = False
-        self.bleedLevel = 0
+        self.bleed = 0
         self.vulnerable = False
         self.canUseAbilities = True
         self.timeLoop = 0
@@ -43,7 +43,7 @@ class Enemy:
         self.debuff = False
         self.superAttack = False
         self.vulnerable = False
-        self.bleedLevel = 0
+        self.bleed = 0
         self.statEffects = []
         self.statChanges = []
         self.statDuration = []
