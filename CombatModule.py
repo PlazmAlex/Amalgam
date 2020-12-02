@@ -65,12 +65,13 @@ def battle(player, enemy):
 
         #Time Loop Check
         #if player.timeLoop == 0:  
-        print("Enter number to select battle option\n\n")  
-        print((player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
+         
+        print("\n" + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
         ")  AP (" + str(player.AP) + ") " + playerBleed +
         "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + enemyBleed +
-        "\n"))
+        "\n")
         n = 1
+        print("Enter number to select battle option\n") 
         for x in player.currentOptions:
             if player.timeLoop != 0:
                 #only show players last choice as an available option
@@ -105,12 +106,12 @@ def battle(player, enemy):
                 #-------------------
                 #Time Loop Check
                 #if player.timeLoop == 0:  
-                print("Enter number to select battle option\n\n")  
                 print((player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
                 ")  AP (" + str(player.AP) + ") " + playerBleed +
                 "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + enemyBleed +
                 "\n"))
                 n = 1
+                print("Enter number to select battle option\n")
                 for x in player.currentOptions:
                     if player.timeLoop != 0:
                         if x != player.currentOptions[int(choice)-1]:
@@ -211,10 +212,10 @@ def turnCheck(turn, enemy, player):
     for index,list in enumerate(turnLists, 0):
         if turn in getattr(enemy, list):
             intent = battleIntents[index]
-            if intent == "superAttack" or "debuff":
+            if intent == "superAttack" or intent == "debuff":
                 #Think of a better way to tie vulnerability to these intentions
                 enemy.vulnerable = True
-                vulnerableText = "\n!!Attack now for critical damage!!\n"
+                vulnerableText = "\n!!It looks vulnerable to attacks!!\n"
             setattr(enemy, intent, True)
             print("\n!!" + enemy.name + " is going to " + intentWarnings[intent] + "!!\n" +
             vulnerableText)
