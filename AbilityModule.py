@@ -94,12 +94,12 @@ def displayAbilities(player, enemy):
         print(UIModule.color.blue + (str(n) + ") " + "Back") + UIModule.color.endColor)
         choice = input()
     if int(choice) == len(player.abilities) + 1:
-        return
+        return 0
     if player.AP < 1:
         UIModule.clear()
         print("No ability points left")
         UIModule.wait()
-        return
+        return 0
     else:
         useAbility(player.abilities[int(choice)-1], player, enemy)
 

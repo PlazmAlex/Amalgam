@@ -107,7 +107,10 @@ def battle(player, enemy):
             choice = input()
         #-------------
         #Menu Choice
-        applyMenuChoice(player, enemy, choice)
+        if choice in [str(x) for x in range (1, len(player.currentOptions) + 1)]:
+            if applyMenuChoice(player, enemy, choice) == 0:
+                continue
+        else:
             continue
         #--------------
         #Enemy Action
@@ -195,29 +198,31 @@ intentWarnings = {
     #might want to communicate exactly what ability enemy will use later
     "debuff" : "inflict a debuff"
 }
-
+def getAbilities(player, enemy):
+    if player.timeLoop != 0:
+        player.AP += 1
+        AbilityModule.useAbility(player.lastAbilityUsed[0], player, enemy)
+        player.canUseAbilities = True
+    if player.canUseAbilities == False:
+        UIModule.clear()
+        print((player.name + " cannot use abilites right now."))
+        UIModule.wait()
+        return 0
+    if player.timeLoop == 0:
+        AbilityModule.displayAbilities(player, enemy)
+    if player.abilityUsed == False:
+        return 0
+    player.abilityUsed = False
+def guard(player, enemy):
+    player.guard = True
 def applyMenuChoice(player, enemy, choice):
-    menuOptions[player.currentOptions[choice - 1]](player, enemy)
+    if menuOptions[player.currentOptions[int(choice) - 1]](player, enemy) == 0:
+        return 0
 menuOptions = {
         "Attack" : dealDamage,
         "Abilities" :  getAbilities,
         "Guard" : guard
     } 
-def guard(player, enemy):
-    player.guard = True
 
-def getAbilities(player, enemy):
-    if player.timeLoop != 0:
-                player.AP += 1
-                AbilityModule.useAbility(player.lastAbilityUsed[0], player, enemy)
-                player.canUseAbilities = True
-            if player.canUseAbilities == False:
-                UIModule.clear()
-                print((player.name + " cannot use abilites right now."))
-                UIModule.wait()
-                continue
-            if player.timeLoop == 0:
-                AbilityModule.displayAbilities(player, enemy)
-            if player.abilityUsed == False:
-                continue 
-            player.abilityUsed = False
+
+
