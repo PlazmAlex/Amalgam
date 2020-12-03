@@ -119,7 +119,7 @@ def secondUpgrade(player):
         print("Orc defeated! Choose an Ability or Upgrade!")
         
         if "Shred" in player.abilities:
-            description = ("Double Eviscerate - Increase enemy's bleed level by 2.")
+            description = ("Eviscerate - Increase enemy's bleed level by 2.")
         else:
             description = ("Shred - Increase enemy's bleed level by 1. Each level deals 2 damage per turn.")
         print(("\n1)EqUIModulep Orc's Sword\n%s" % description))
@@ -138,7 +138,7 @@ def secondUpgrade(player):
         response = input()
         if response == "1":
             if "Shred" in player.abilities:
-                player.abilities[(player.abilities.index("Shred"))] = "Double Eviscerate"
+                player.abilities[(player.abilities.index("Shred"))] = "Eviscerate"
             else:
                 player.abilities.append("Shred")
         elif response == "2":

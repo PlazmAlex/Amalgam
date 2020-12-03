@@ -16,7 +16,7 @@ class Ability:
 
 shred = Ability("Shred","bleed", "+", 1, None, True, "opponent",
 " has been shredded!","Increase enemy's bleed by 2. Each bleed deals 1 damage per turn.")
-doubleEviscerate = Ability("Double Eviscerate", "bleed", "+", 2, None, True, "opponent",
+Eviscerate = Ability("Eviscerate", "bleed", "+", 2, None, True, "opponent",
 " has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
 heal = Ability("Heal", "maxhp", "*", .7, None, False, "user",
 " healed!", "Restore 70% of your max HP.")
@@ -113,7 +113,7 @@ def abilityUpgrade(player,abilities,enemy):
             if ability in player.abilities:
                 ability = abilityPlus(ability)
             responseBank.append(str(n))
-            print("\n" + str(n) + ")" + enemy.loot[n-1] + "\n Gain ability: " + ability.name + " - Use to " + ability.description)
+            print("\n" + str(n) + ") " + enemy.loot[n-1] + ":\n Gain ability (" + ability.name + ")\n-Use to " + ability.description)
             n += 1
         response = input()
         UIModule.clear()
@@ -125,7 +125,7 @@ def abilityUpgrade(player,abilities,enemy):
 UIModule.clear()
 
 abilityLevelUp = {
-    shred : doubleEviscerate,
+    shred : Eviscerate,
     heal : rejuvinate,
     strengthen : bellow
 }

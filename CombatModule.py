@@ -8,7 +8,7 @@ mageEffect = False
 
 def dealDamage(attacker, defender):
     critical = ""
-    devestate = ""
+    devastate = ""
     if defender.guard == True:
         UIModule.clear()
         print((defender.name + " guarded!\n"))
@@ -19,16 +19,16 @@ def dealDamage(attacker, defender):
     damage = attacker.attack - defense
     if attacker.superAttack == True:
         damage = damage * 3
-        devestate = "!!Devastating Attack!!\n\n"
+        devastate = (UIModule.color.red + "!!Devastating Attack!!\n\n" + UIModule.color.endColor)
         attacker.superAttack = False
     elif defender.vulnerable == True:
         damage = damage * 2
-        critical = "!!!Critical Strike!!!\n\n"
+        critical = (UIModule.color.blue + "!!!Critical Strike!!!\n\n" + UIModule.color.endColor)
     if damage <= 0:
         damage = 1
     defender.hp = defender.hp - damage
     UIModule.clear()
-    print((critical + devestate + attacker.name + " dealt " + str(damage) + " damage to " + defender.name + "!"))
+    print((critical + devastate + attacker.name + " dealt " + str(damage) + " damage to " + defender.name + "!"))
     UIModule.wait()
     if defender.hp < 0:
         defender.hp = 0
@@ -46,22 +46,6 @@ def battle(player, enemy):
                 print(("\n!!!!" + enemy.name + " prevents abilities on odd turns!!!!\n"))
                 player.canUseAbilities = False
         turnCheck(turn, enemy, player)
-        """
-        if turn in enemy.superTurn:
-            print(("\n!!!" + enemy.name + " is preparing a devastating attack!!!\n\n"))
-            enemy.superAttack = True
-            enemy.vulnerable = True
-        elif turn in enemy.guardTurn:
-            print(("\n!" + enemy.name + " is guarding!\n\n"))
-            enemy.guard = True
-        elif turn in enemy.debuffTurn:
-            if mageEffect == True:
-                print(("\n!!" + enemy.name + " is going to create a time loop!!\n\n"))
-            else:
-                print(("\n!!" + enemy.name + " is going to debuff " + player.name + "!!\n\n"))
-            enemy.debuff = True
-            enemy.vulnerable = True
-        """
         #-------------------
 
         #Time Loop Check
@@ -123,26 +107,7 @@ def battle(player, enemy):
             choice = input()
         #-------------
         #Menu Choice
-        if choice == str(player.currentOptions.index("Attack")+1):
-            dealDamage(player, enemy)
-        elif choice == str(player.currentOptions.index("Abilities")+1):
-            if player.timeLoop != 0:
-                player.AP += 1
-                AbilityModule.useAbility(player.lastAbilityUsed[0], player, enemy)
-                player.canUseAbilities = True
-            if player.canUseAbilities == False:
-                UIModule.clear()
-                print((player.name + " cannot use abilites right now."))
-                UIModule.wait()
-                continue
-            if player.timeLoop == 0:
-                AbilityModule.displayAbilities(player, enemy)
-            if player.abilityUsed == False:
-                continue 
-            player.abilityUsed = False
-        elif choice == str(player.currentOptions.index("Guard")+1): 
-            player.guard = True
-        else:
+        applyMenuChoice(player, enemy, choice)
             continue
         #--------------
         #Enemy Action
@@ -230,3 +195,29 @@ intentWarnings = {
     #might want to communicate exactly what ability enemy will use later
     "debuff" : "inflict a debuff"
 }
+
+def applyMenuChoice(player, enemy, choice):
+    menuOptions[player.currentOptions[choice - 1]](player, enemy)
+menuOptions = {
+        "Attack" : dealDamage,
+        "Abilities" :  getAbilities,
+        "Guard" : guard
+    } 
+def guard(player, enemy):
+    player.guard = True
+
+def getAbilities(player, enemy):
+    if player.timeLoop != 0:
+                player.AP += 1
+                AbilityModule.useAbility(player.lastAbilityUsed[0], player, enemy)
+                player.canUseAbilities = True
+            if player.canUseAbilities == False:
+                UIModule.clear()
+                print((player.name + " cannot use abilites right now."))
+                UIModule.wait()
+                continue
+            if player.timeLoop == 0:
+                AbilityModule.displayAbilities(player, enemy)
+            if player.abilityUsed == False:
+                continue 
+            player.abilityUsed = False
