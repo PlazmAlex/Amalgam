@@ -55,8 +55,10 @@ def battle(player, enemy):
         #if player.timeLoop == 0:  
          
         print("\n" + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
-        ")  Ability Points (" + str(player.AP) + ") " + UIModule.color.red + playerBleed + UIModule.color.endColor +
-        "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
+        ")  Ability Points (" + str(player.AP) + "/" + str(player.maxAP) + ") " +
+         UIModule.color.red + playerBleed + UIModule.color.endColor +
+        "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) +
+         ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
         "\n")
         n = 1
         print("Enter number to select battle option\n")

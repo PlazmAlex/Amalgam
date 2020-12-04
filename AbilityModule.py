@@ -19,15 +19,15 @@ shred = Ability("Shred","bleed", "+", 2, 3, True, "opponent",
 Eviscerate = Ability("Eviscerate", "bleed", "+", 4, 3, True, "opponent",
 " has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
 heal = Ability("Heal", "maxhp", "*", .7, None, False, "user",
-" healed!", "Restore 70% of your max HP.")
+" healed!", "Restore 70% of your max Health Points.")
 rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user",
-" feels rejuvinated!", "Heal all your HP")
+" feels rejuvinated!", "Restore all your Health Points")
 strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
 " grew stronger!", "Increase your attack power by 2 until end of battle")
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",
 " ROARED!", "Increase your attack power by 3 until end of battle.")
 timeLoop = Ability("Time Loop", "timeLoop", "+", 1, 3, False, "opponent", 
-" was put in a time loop!\nIt must repeat its last action!",
+" was put in a time loop!\n\nIt must repeat its last action!",
 "Opponent must repeat action used this turn 2 more times!")
 
 def useAbility(ability, user, opponent):
@@ -119,7 +119,7 @@ def abilityUpgrade(player,abilities,enemy):
     while response not in responseBank:
         UIModule.clear()
         n = 1
-        print(enemy.name + " defeated! Choose an ability!")
+        print(enemy.name + " defeated! Choose an ability to gain!")
         for index,ability in enumerate(abilitiesList):
             noDuplicate = True
             abilityDuplicate = None
@@ -135,7 +135,7 @@ def abilityUpgrade(player,abilities,enemy):
             if noDuplicate == False:
                 break
             responseBank.append(str(n))
-            print("\n" + str(n) + ") " + enemy.loot[n-1] + ":\n Gain ability (" + ability.name + ")\n-Use to " + ability.description)
+            print("\n" + str(n) + ") " + "Gain ability (" + ability.name + ")\nUse to " + ability.description)
             n += 1
         if noDuplicate == False:
             #delete the ability from the list and start again

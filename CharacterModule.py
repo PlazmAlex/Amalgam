@@ -30,7 +30,7 @@ class SaveFile:
         self.lastAbilityUsed = [""]
         self.lastAction = [""]
 class Enemy:
-    def __init__(self, name, hp, attack, defense,sTurns,gTurns,dTurns,ability,loot):
+    def __init__(self, name, hp, attack, defense,sTurns,gTurns,dTurns,ability):
         self.name = name
         #Stats
         self.hp = hp
@@ -57,9 +57,5 @@ class Enemy:
         self.debuffTurn = dTurns
         #---
         self.ability = ability
-        self.loot = loot
         self.lastAbilityUsed = [""]
         self.lastAction = [""]
-        #Loot is a list of strings that describes what is gained...
-        #... from defeating this enemy
-        #The string will be displayed on the ability upgrade fubction 
