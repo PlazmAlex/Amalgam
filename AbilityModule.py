@@ -14,14 +14,14 @@ class Ability:
 
     #timeLoop = Ability("Time Loop")
 
-shred = Ability("Shred","bleed", "+", 2, 3, True, "opponent",
+shred = Ability("Shred","bleed", "+", 2, None, True, "opponent",
 " has been shredded!","Increase enemy's bleed by 2. Each bleed deals 1 damage per turn.")
-Eviscerate = Ability("Eviscerate", "bleed", "+", 4, 3, True, "opponent",
+Eviscerate = Ability("Eviscerate", "bleed", "+", 4, None, True, "opponent",
 " has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
 heal = Ability("Heal", "maxhp", "*", .7, None, False, "user",
-" healed!", "Restore 70% of your max Health Points.")
+" healed!", "Restore 70% of your max HP.")
 rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user",
-" feels rejuvinated!", "Restore all your Health Points")
+" feels rejuvinated!", "Restore all of your HP")
 strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
 " grew stronger!", "Increase your attack power by 2 until end of battle")
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",

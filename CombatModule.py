@@ -137,6 +137,7 @@ def battle(player, enemy):
 #ready to perform it
 def turnCheck(turn, enemy, player):
     vulnerableText = ""
+    normalTurn = True
     turnLists = ["superTurn", "guardTurn", "debuffTurn"]
     battleIntents = ["superAttack", "guard",  "debuff"]
     for index,list in enumerate(turnLists, 0):
@@ -147,8 +148,11 @@ def turnCheck(turn, enemy, player):
                 enemy.vulnerable = True
                 vulnerableText = "\n!!It looks vulnerable to attacks!!\n"
             setattr(enemy, intent, True)
+            normalTurn = False
             print(UIModule.color.yellow + "\n!!" + enemy.name + " is going to " + intentWarnings[intent] + "!!\n" +
             vulnerableText + UIModule.color.endColor)
+    if normalTurn == True:
+        print("\n!" + enemy.name + " is going to attack!\n")
 intentWarnings = {
     "superAttack" : "unleash a devestating attack",
     "guard" : "guard itself",
