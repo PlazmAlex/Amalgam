@@ -60,48 +60,16 @@ def battle(player, enemy):
         "\n")
         n = 1
         print("Enter number to select battle option\n")
-        if player.timeLoop = 1:
-            player.currentOptions = player.battleOptions[int(choice-1)]
+        if player.timeLoop == 1:
+            player.currentOptions = player.lastAction
         for x in player.currentOptions:
             print((str(n) + ") " + x))
             n += 1
-        if player.timeLoop != 0:
-            while input() != "1":
-                #Looking for a better way to reset screen on incorrect input
-                UIModule.clear()
-                print(("Turn: " + str(turn)))
-                if mageEffect == True:
-                    if turn in range(1,100,2):
-                        print(("\n!!!!" + enemy.name + " prevents abilities on odd turns!!!!\n"))
-                        player.canUseAbilities = False
-                if turn in enemy.superTurn:
-                    print(("\n!!!" + enemy.name + " is preparing a devastating attack!!!\n\n"))
-                    enemy.superAttack = True
-                    enemy.vulnerable = True
-                elif turn in enemy.guardTurn:
-                    print(("\n!" + enemy.name + " is guarding!\n\n"))
-                    enemy.guard = True
-                elif turn in enemy.debuffTurn:
-                    if mageEffect == True:
-                        print(("\n!!" + enemy.name + " is going to create a time loop!!\n\n"))
-                    else:
-                        print(("\n!!" + enemy.name + " is going to debuff " + player.name + "!!\n\n"))
-                    enemy.debuff = True
-                    enemy.vulnerable = True
-                #-------------------
-                #Time Loop Check
-                #if player.timeLoop == 0:  
-                print("\n" + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
-                ")  Ability Points (" + str(player.AP) + ") " + UIModule.color.red + playerBleed + UIModule.color.endColor +
-                "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
-                "\n")
-                n = 1
-                print("Enter number to select battle option\n")
-                for x in player.currentOptions:
-                    if player.timeLoop != 0:
-                        if x != player.currentOptions[int(choice)-1]:
-                            continue
-                    print(UIModule.color.blue + (str(n) + ") " + x) + UIModule.color.endColor)
+        if player.timeLoop == 1:
+            if input() == "1":
+                choice = "1"
+                pass
+            else:
                 continue
         else:
             choice = input()
@@ -120,6 +88,10 @@ def battle(player, enemy):
             AbilityModule.useAbility(enemy.ability,enemy, player)
         #------------
         #End of Turn effects
+        if len(player.statDuration) > 0:
+            applyDurationDecay(player)
+        if len(enemy.statDuration) > 0:
+            applyDurationDecay(enemy)
         if player.timeLoop > 0:
             UIModule.clear()
             print((player.name + " is stuck in a time loop!"))
@@ -129,49 +101,30 @@ def battle(player, enemy):
         enemy.guard = False
         enemy.vulnerable = False
         enemy.debuff = False
+        playerBleed = ""
+        enemyBleed = ""
+        player.currentOptions = player.battleOptions
         if (player.bleed > 0) and (enemy.hp > 0):   
-            playerBleed = (" BLEED( " + str(player.bleed) + " )")
-            player.hp -= player.bleed
-            UIModule.clear()
-            print(player.name + " is bleeding!") 
-            input()
-            print("It loses " + str(player.bleed) + " health!")
-            UIModule.wait()
-            if player.hp <= 0:
-                UIModule.clear()
-                print((player.name + " bled out!"))
-                UIModule.wait()
+            playerBleed = (" BLEED(" + str(player.bleed) + ")")
+            applyBleed(player)
         if enemy.bleed > 0:
-            enemyBleed = (" BLEED( " + str(enemy.bleed) + " )")
-            enemy.hp -= enemy.bleed
-            UIModule.clear()
-            print(enemy.name + " is bleeding!")
-            input()
-            print("It loses " + str(enemy.bleed) + " health!")
-            UIModule.wait()
-            if enemy.hp <= 0:
-                UIModule.clear()
-                print(enemy.name + " bled out!")
-                UIModule.wait()
+            enemyBleed = (" BLEED(" + str(enemy.bleed) + ")")
+            applyBleed(enemy)
         #-------------
-        turn = turn + 1
+        turn += 1
+    player.lastAction = [""]
     player.lastAbilityUsed = [""]
     player.bleed = 0
-    enemy.bleed = 0
     player.attack = player.maxattack
-    enemy.attack = enemy.maxattack
     player.defense = player.maxdefense
-    enemy.defense = enemy.maxdefense
     player.AP = player.maxAP
     if player.hp > 0:
         player.hp = player.maxhp
-        enemy.hp = enemy.maxhp
         UIModule.clear()
         print((player.name + " survived!"))
         UIModule.wait()
     else:
         player.hp = player.maxhp
-        enemy.hp = enemy.maxhp
         UIModule.clear()
         print((player.name + " died!"))#Need lose function
         UIModule.wait()
@@ -228,11 +181,37 @@ def guard(player, enemy):
 def applyMenuChoice(player, enemy, choice):
     if menuOptions[player.currentOptions[int(choice) - 1]](player, enemy) == 0:
         return 0
+    else:
+        player.lastAction[0] = player.currentOptions[int(choice) - 1]
 menuOptions = {
         "Attack" : dealDamage,
         "Abilities" :  getAbilities,
         "Guard" : guard
     } 
 
+def applyDurationDecay(character):
+    for index in range(0,len(character.statDuration)):
+        character.statDuration[index] -= 1
+        if character.statDuration[index] == 0:
+            #this reverses the stat change whose duration just ended
+            setattr(character, character.statEffects[index], getattr(character,
+            character.statEffects[index]) - character.statChanges[index])
+            character.statDuration[index] = False
+            character.statEffects[index] = False
+            character.statChanges[index] = False
+    #This removes all the leftover data from the ability since it's duration has ended
+    filter(None, character.statEffects)
+    filter(None, character.statDuration)
+    filter(None, character.statChanges)
 
-
+def applyBleed(character):
+    character.hp -= character.bleed
+    UIModule.clear()
+    print(character.name + " is bleeding!") 
+    input()
+    print("It loses " + str(character.bleed) + " health!")
+    UIModule.wait()
+    if character.hp <= 0:
+        UIModule.clear()
+        print((character.name + " bled out!"))
+        UIModule.wait()

@@ -54,7 +54,9 @@ initialize_game()
 SaveOne.abilities.append(AbilityModule.shred)
 SaveOne.abilities.append(AbilityModule.heal)
 SaveOne.abilities.append(AbilityModule.strengthen)
-
+SaveOne.allAbilities.append(AbilityModule.shred)
+SaveOne.allAbilities.append(AbilityModule.heal)
+SaveOne.allAbilities.append(AbilityModule.strengthen)
 #===============================
 #CHAPTER 1
 
@@ -157,13 +159,15 @@ UIModule.clear()
 
 secondUpgrade(SaveOne)
 """
+AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Rat)
+
 #Chapter 4
 slothSTurns = [6,15,18,23,26,30,35,38,41,42,43,44,45]
 slothGTurns = [4,5,9,14,16,20,21,24,25,31,32,33,34,36,37]
 slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
 SavageSloth = CharacterModule.Enemy("Savage Sloth", 100, 10, 1,
 slothSTurns, slothGTurns, slothDTurns,AbilityModule.shred,["no loot"])
-CombatModule.battle(SaveOne, SavageSloth)
+#CombatModule.battle(SaveOne, SavageSloth)
 UIModule.clear()
 
 levelUp(SaveOne,55,3,2,1)
@@ -181,7 +185,7 @@ for x in range(5,100,5):
     mageDTurns.append(x)
 CombatModule.mageEffect = True
 temporalMage = CharacterModule.Enemy("Temporal Mage",191,13,2,
-mageSTurns, mageGTurns, mageDTurns, "Time Loop", ["no loot"])
+mageSTurns, mageGTurns, mageDTurns, AbilityModule.timeLoop, ["no loot"])
 UIModule.wait()
 CombatModule.battle(SaveOne, temporalMage)
 
