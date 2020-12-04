@@ -26,6 +26,9 @@ strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
 " grew stronger!", "Increase your attack power by 2 until end of battle")
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",
 " ROARED!", "Increase your attack power by 3 until end of battle.")
+timeLoop = Ability("Time Loop", "timeLoop", "+", 1, 2, False, "opponent", 
+" was put in a time loop!/nIt must repeat it's last action!",
+"Enemy must repeat action used this turn for next 2 turns")
 
 def useAbility(ability, user, opponent):
     target = user if ability.target == "user" else opponent

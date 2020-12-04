@@ -6,6 +6,8 @@ import time
 #Need to create a class that handles turn based events independent of enemy
 mageEffect = False
 
+#This subtracts health points from the defender according to various battle data including attack power 
+#and defense
 def dealDamage(attacker, defender):
     critical = ""
     devastate = ""
@@ -33,6 +35,7 @@ def dealDamage(attacker, defender):
     if defender.hp < 0:
         defender.hp = 0
         
+#this handles the main battle loop by calling functions based on player input and enemy intent
 def battle(player, enemy):
     turn = 1
     enemyBleed = ""
@@ -56,13 +59,10 @@ def battle(player, enemy):
         "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
         "\n")
         n = 1
-        print("Enter number to select battle option\n") 
+        print("Enter number to select battle option\n")
+        if player.timeLoop = 1:
+            player.currentOptions = player.battleOptions[int(choice-1)]
         for x in player.currentOptions:
-            if player.timeLoop != 0:
-                #only show players last choice as an available option
-                #choice will be assigned before it is referenced here
-                if x != player.currentOptions[int(choice)-1]:
-                    continue
             print((str(n) + ") " + x))
             n += 1
         if player.timeLoop != 0:
@@ -124,7 +124,6 @@ def battle(player, enemy):
             UIModule.clear()
             print((player.name + " is stuck in a time loop!"))
             UIModule.wait()
-            player.timeLoop -= 1
         player.canUseAbilities = True
         player.guard = False
         enemy.guard = False
@@ -178,6 +177,9 @@ def battle(player, enemy):
         UIModule.wait()
         sys.exit(0)
 
+#This checks what the enemy will do by checking the turn counter vs it's lists of actions
+#It then displays text to the player about what the enemy will do while getting the enemy
+#ready to perform it
 def turnCheck(turn, enemy, player):
     vulnerableText = ""
     turnLists = ["superTurn", "guardTurn", "debuffTurn"]
@@ -198,6 +200,9 @@ intentWarnings = {
     #might want to communicate exactly what ability enemy will use later
     "debuff" : "inflict a debuff"
 }
+
+#This checks if the player can use abilities then displays them.It also handles situations where
+#abilities cannot be selected
 def getAbilities(player, enemy):
     if player.timeLoop != 0:
         player.AP += 1
@@ -213,8 +218,13 @@ def getAbilities(player, enemy):
     if player.abilityUsed == False:
         return 0
     player.abilityUsed = False
+
 def guard(player, enemy):
     player.guard = True
+
+#This takes the player input on the battle menu and executes a function associated with
+#the selected option
+#it returns 0 if the player's selection did nothing, allowing them to repeat the choice
 def applyMenuChoice(player, enemy, choice):
     if menuOptions[player.currentOptions[int(choice) - 1]](player, enemy) == 0:
         return 0
