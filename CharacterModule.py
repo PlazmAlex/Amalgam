@@ -7,8 +7,8 @@ class SaveFile:
         self.attack = 4
         self.defense = 1
         self.maxattack = 4
-        self.AP = 1
-        self.maxAP = 1
+        self.AP = 0
+        self.maxAP = 0
         self.maxdefense = 1
         #---
         #Battle states

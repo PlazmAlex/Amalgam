@@ -136,6 +136,11 @@ def battle(player, enemy):
 #It then displays text to the player about what the enemy will do while getting the enemy
 #ready to perform it
 def turnCheck(turn, enemy, player):
+    intentWarnings = {
+        "superAttack" : "unleash a devastating attack",
+        "guard" : "guard itself",
+        "debuff" : "use " + enemy.ability.name
+        }
     vulnerableText = ""
     normalTurn = True
     turnLists = ["superTurn", "guardTurn", "debuffTurn"]
@@ -153,12 +158,7 @@ def turnCheck(turn, enemy, player):
             vulnerableText + UIModule.color.endColor)
     if normalTurn == True:
         print("\n!" + enemy.name + " is going to attack!\n")
-intentWarnings = {
-    "superAttack" : "unleash a devastating attack",
-    "guard" : "guard itself",
-    #might want to communicate exactly what ability enemy will use later
-    "debuff" : "inflict a debuff"
-}
+
 
 #This checks if the player can use abilities then displays them.It also handles situations where
 #abilities cannot be selected

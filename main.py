@@ -33,6 +33,7 @@ def levelUp(player, enemy, hp,attack,defense,AP):
         player.maxAP += AP
         player.AP = player.maxAP
         print("Max Ability Points + " + str(AP))
+        UIModule.wait()
 
 def initialize_game():
     UIModule.clear()
@@ -66,12 +67,6 @@ UIModule.clear()
 initialize_game()
 
 #all these need to end up in the ability class later
-SaveOne.abilities.append(AbilityModule.shred)
-SaveOne.abilities.append(AbilityModule.heal)
-SaveOne.abilities.append(AbilityModule.strengthen)
-SaveOne.allAbilities.append(AbilityModule.shred)
-SaveOne.allAbilities.append(AbilityModule.heal)
-SaveOne.allAbilities.append(AbilityModule.strengthen)
 #===============================
 
 #Chapter 1
@@ -85,18 +80,20 @@ UIModule.wait()
 UIModule.clear()
 print("A rat seeks to claim your newfound mortality.")
 UIModule.wait()
-Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12,15],[],[],None)
+Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12,15],[],[],AbilityModule.default)
 CombatModule.battle(SaveOne, Rat)
 UIModule.clear()
 levelUp(SaveOne, Rat, 10,1,0,1)
 
-#Chapter Rabbid Raccoon
-raccoonSTurns = []
-raccoonDTurns = [1, 4, 10,11]
-Raccoon = CharacterModule.Enemy("Raccoon", 35, 3, 2, raccoonSTurns, [], raccoonDTurns, AbilityModule.shred)
-CombatModule.battle(SaveOne, Raccoon)
+AbilityModule.getAbility(SaveOne, AbilityModule.shred, Rat)
 
-AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Raccoon)
+#Chapter Wolf
+wolfSTurns = [4, 11]
+wolfDTurns = [2, 5, 9, 10]
+Wolf = CharacterModule.Enemy("Dire Wolf", 35, 2, 2, wolfSTurns, [], wolfDTurns, AbilityModule.strengthen)
+CombatModule.battle(SaveOne, Wolf)
+
+#AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Raccoon)
 
 #Chapter Bloody Boar
 UIModule.clear()
@@ -104,17 +101,17 @@ print("A wild Pig appears!")
 UIModule.wait()
 pigSTurns = [2,7,8,10,12,16,20]
 pigGTurns = []
-Pig = CharacterModule.Enemy("Pig",40,4,1,pigSTurns,pigGTurns,[],None)
+Pig = CharacterModule.Enemy("Pig",40,4,1,pigSTurns,pigGTurns,[],AbilityModule.heal)
 CombatModule.battle(SaveOne, Pig)
 
 UIModule.clear()
-levelUp(SaveOne, Pig, 10,3,1,1)
+levelUp(SaveOne, Pig, 20,3,1,1)
 UIModule.wait()
 
 #Chapter Orc 
 orcSTurns = [2,7,13,15,16,17]
 orcGTurns = [3,4,8,9,14]
-Orc = CharacterModule.Enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],None)
+Orc = CharacterModule.Enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],AbilityModule.default)
 CombatModule.battle(SaveOne, Orc)
 UIModule.clear()
 AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Orc)

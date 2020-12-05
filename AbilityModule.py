@@ -13,7 +13,8 @@ class Ability:
         self.flavor = flavor
 
     #timeLoop = Ability("Time Loop")
-
+default = Ability("None", "attack", "-", 0, None, False, "user",
+" this text should never appear", "This enemy has no abilities")
 shred = Ability("Shred","bleed", "+", 2, None, True, "opponent",
 " has been shredded!","Increase enemy's bleed by 2. Each bleed deals 1 damage per turn.")
 Eviscerate = Ability("Eviscerate", "bleed", "+", 4, None, True, "opponent",
@@ -30,11 +31,22 @@ timeLoop = Ability("Time Loop", "timeLoop", "+", 1, 3, False, "opponent",
 " was put in a time loop!\n\nIt must repeat its last action!",
 "Opponent must repeat action used this turn 2 more times!")
 
+def getAbility(player, ability, enemy):
+    UIModule.clear()
+    print(enemy.name + " defeated!")
+    input()
+    print(player.name + " learned how to use the " + ability.name + " ability!")
+    input()
+    print("(" + ability.name + ") - " + ability.description)
+    UIModule.wait()
+    player.abilities.append(ability)
+    player.allAbilities.append(ability)
+
 def useAbility(ability, user, opponent):
     target = user if ability.target == "user" else opponent
     if ability.guardable and target.guard:
         UIModule.clear()
-        print(target.name + " guarded the ability!")
+        print(target.name + " guarded itself against " + ability.name + "!")
         user.abilityUsed = True
         user.lastAbilityUsed[0] = ability
         user.AP -= 1
@@ -59,6 +71,8 @@ def useAbility(ability, user, opponent):
     #Display and implement effects 
     setattr(target, statName, targetStat + statChange)
     UIModule.clear()
+    print(user.name + " used " + ability.name)
+    input()
     print(target.name + ability.flavor)
     print(statName.title() + " + " + str(statChange))
     UIModule.wait()
