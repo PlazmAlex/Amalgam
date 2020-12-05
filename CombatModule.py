@@ -61,7 +61,7 @@ def battle(player, enemy):
          ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
         "\n")
         n = 1
-        print("Enter number to select battle option\n")
+        print("[Enter number to select battle option]\n")
         if player.timeLoop == 1:
             player.currentOptions = player.lastAction
         for x in player.currentOptions:
@@ -154,7 +154,7 @@ def turnCheck(turn, enemy, player):
     if normalTurn == True:
         print("\n!" + enemy.name + " is going to attack!\n")
 intentWarnings = {
-    "superAttack" : "unleash a devestating attack",
+    "superAttack" : "unleash a devastating attack",
     "guard" : "guard itself",
     #might want to communicate exactly what ability enemy will use later
     "debuff" : "inflict a debuff"
