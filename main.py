@@ -31,6 +31,7 @@ def levelUp(player, enemy, hp,attack,defense,AP):
         player.AP = player.maxAP
         print("Max Ability Points + " + str(AP))
     UIModule.wait()
+    UIModule.clear()
 
 def initialize_game():
     UIModule.clear()
@@ -76,16 +77,17 @@ UIModule.clear()
 print("A rat seeks to claim your newfound mortality.")
 UIModule.wait()
 """
-Rat = CharacterModule.Enemy("Rat", 25, 3, 1, [3,4,9,12,15], [], [], AbilityModule.default)
+Rat = CharacterModule.Enemy("Rat", 25, 3, 1,
+[3,4,9,12,15], [], [], AbilityModule.default)
 #CombatModule.battle(SaveOne, Rat)
-UIModule.clear()
 
 levelUp(SaveOne, Rat, 5,1,0,0)
 
 #Chapter Wolf
 wolfSTurns = [4, 6, 12]
 wolfDTurns = [2, 5, 8, 10, 11]
-Wolf = CharacterModule.Enemy("Dire Wolf", 35, 1, 2, wolfSTurns, [], wolfDTurns, AbilityModule.strengthen)
+Wolf = CharacterModule.Enemy("Dire Wolf", 35, 1, 2,
+wolfSTurns, [], wolfDTurns, AbilityModule.strengthen)
 #CombatModule.battle(SaveOne, Wolf)
 AbilityModule.getAbility(SaveOne, AbilityModule.strengthen, Wolf)
 
@@ -93,7 +95,8 @@ levelUp(SaveOne, Wolf, 5,1,0,1)
 
 #Chapter Cat
 #This chaper may need to be made easier
-Cat = CharacterModule.Enemy("Feral Cat", 40, 4, 2, [3, 14, 17], [], [2, 5, 8, 9, 11, 12], AbilityModule.shred)
+Cat = CharacterModule.Enemy("Feral Cat", 40, 4, 2,
+[3, 14, 17], [], [2, 5, 8, 9, 11, 12], AbilityModule.shred)
 #CombatModule.battle(SaveOne, Cat)
 AbilityModule.getAbility(SaveOne, AbilityModule.shred, Cat)
 
@@ -101,25 +104,22 @@ levelUp(SaveOne, Cat, 5,1,0,1)
 
 
 #Chapter Lazy pig
-UIModule.clear()
-print("A wild Pig appears!")
-UIModule.wait()
 pigSTurns = []
 pigGTurns = []
-Pig = CharacterModule.Enemy("Pig",50,3,1,pigSTurns,pigGTurns, [5, 10, 15, 20], AbilityModule.heal)
+Pig = CharacterModule.Enemy("Pig",50,3,1,
+pigSTurns,pigGTurns, [5, 10, 15, 20], AbilityModule.heal)
 #CombatModule.battle(SaveOne, Pig)
 AbilityModule.getAbility(SaveOne, AbilityModule.heal, Pig)
 
-UIModule.clear()
 levelUp(SaveOne, Pig, 10,1,1,1)
-UIModule.wait()
 
 #Chapter Orc 
-orcSTurns = [2,7,13,15,16,17]
-orcGTurns = [3,4,8,9,14]
-Orc = CharacterModule.Enemy("Young Orc",40,9,3,orcSTurns,orcGTurns,[],AbilityModule.default)
-CombatModule.battle(SaveOne, Orc)
-UIModule.clear()
+orcSTurns = [2,7,13,15,16,20,23,24,28,29,30]
+orcGTurns = [3,4,8,9,14,17,19,21,25]
+Orc = CharacterModule.Enemy("Young Orc",50,9,3,
+orcSTurns,orcGTurns,[],AbilityModule.default)
+#CombatModule.battle(SaveOne, Orc)
+
 AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Orc)
 
 #Chapter Sloth
@@ -128,10 +128,29 @@ slothGTurns = [4,5,9,14,16,20,21,24,25,31,32,33,34,36,37]
 slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
 SavageSloth = CharacterModule.Enemy("Savage Sloth", 100, 10, 1,
 slothSTurns, slothGTurns, slothDTurns,AbilityModule.shred)
-CombatModule.battle(SaveOne, SavageSloth)
-UIModule.clear()
-levelUp(SaveOne, SavageSloth, 55,3,2,1)
+#CombatModule.battle(SaveOne, SavageSloth)
+levelUp(SaveOne, SavageSloth, 25,2,1,1)
 
+paladinSTurns = []
+paladinGTurns = []
+paladinDTurns = []
+Paladin =  CharacterModule.Enemy("Paladin", 90, 12, 3,
+paladinSTurns, paladinGTurns, paladinDTurns, AbilityModule.heal)
+AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Paladin)
+
+ogreSTurns = []
+ogreGTurns = []
+ogreDTurns = []
+Ogre =CharacterModule.Enemy("Giant Ogre", 150, 15, 2,
+ogreSTurns, ogreDTurns, ogreDTurns, AbilityModule.strengthen)
+levelUp(SaveOne, Ogre, 30,2,1,0)
+
+"""
+tortoiseSTurns = []
+tortoiseGTurns = []
+tortoiseDTurns = []
+Tortoise = CharacterModule.Enemy("Continental Tortoise")
+"""
 #Chapter Mage
 mageSTurns = []
 for x in range(1,100,5):

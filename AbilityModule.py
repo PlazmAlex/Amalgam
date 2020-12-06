@@ -41,6 +41,7 @@ def getAbility(player, ability, enemy):
     UIModule.wait()
     player.abilities.append(ability)
     player.allAbilities.append(ability)
+    UIModule.clear()
 
 def useAbility(ability, user, opponent):
     target = user if ability.target == "user" else opponent
@@ -133,8 +134,10 @@ def abilityUpgrade(player,abilities,enemy):
     while response not in responseBank:
         UIModule.clear()
         n = 1
-        print(enemy.name + " defeated! Choose an ability to gain!")
+        print(enemy.name + " defeated! Choose one ability to get!")
         for index,ability in enumerate(abilitiesList):
+            oldAbility = ""
+            hasAbility = "Gain"
             noDuplicate = True
             abilityDuplicate = None
             while ability in player.allAbilities:
@@ -145,11 +148,14 @@ def abilityUpgrade(player,abilities,enemy):
                     abilityDuplicate = index
                     break
                 #upgrade the ability
+                hasAbility = "Upgrade"
+                oldAbility = ability.name + " -> "
                 ability = abilityPlus(ability)
             if noDuplicate == False:
                 break
             responseBank.append(str(n))
-            print("\n" + str(n) + ") " + "Gain ability (" + ability.name + ")\nUse to " + ability.description)
+            print("\n" + str(n) + ") " + hasAbility + " ability (" + oldAbility 
+            + ability.name + ")\nUse to " + ability.description)
             n += 1
         if noDuplicate == False:
             #delete the ability from the list and start again
