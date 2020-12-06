@@ -5,13 +5,10 @@ import AbilityModule
 import UIModule
 import sys
 
-#Would be nice if I could move these assignments somewhere else, but this is fine for now
-
-    #timeLoop = Ability("Time Loop")
-
 print("*********\n*Amalgam*\n*********")
 UIModule.wait()
 def levelUp(player, enemy, hp,attack,defense,AP):
+    UIModule.clear()
     print(enemy.name + " defeated! Level Up!")
     input()
     if hp > 0:
@@ -33,7 +30,7 @@ def levelUp(player, enemy, hp,attack,defense,AP):
         player.maxAP += AP
         player.AP = player.maxAP
         print("Max Ability Points + " + str(AP))
-        UIModule.wait()
+    UIModule.wait()
 
 def initialize_game():
     UIModule.clear()
@@ -66,11 +63,9 @@ def initialize_game():
 UIModule.clear()
 initialize_game()
 
-#all these need to end up in the ability class later
-#===============================
 
 #Chapter 1
-
+"""
 UIModule.clear()
 print((SaveOne.name + " breaks from of his egg to breathe his first breath."))
 UIModule.wait()
@@ -80,32 +75,43 @@ UIModule.wait()
 UIModule.clear()
 print("A rat seeks to claim your newfound mortality.")
 UIModule.wait()
-Rat = CharacterModule.Enemy("Rat",25,3,1,[3,4,9,12,15],[],[],AbilityModule.default)
-CombatModule.battle(SaveOne, Rat)
+"""
+Rat = CharacterModule.Enemy("Rat", 25, 3, 1, [3,4,9,12,15], [], [], AbilityModule.default)
+#CombatModule.battle(SaveOne, Rat)
 UIModule.clear()
-levelUp(SaveOne, Rat, 10,1,0,1)
 
-AbilityModule.getAbility(SaveOne, AbilityModule.shred, Rat)
+levelUp(SaveOne, Rat, 5,1,0,0)
 
 #Chapter Wolf
-wolfSTurns = [4, 11]
-wolfDTurns = [2, 5, 9, 10]
-Wolf = CharacterModule.Enemy("Dire Wolf", 35, 2, 2, wolfSTurns, [], wolfDTurns, AbilityModule.strengthen)
-CombatModule.battle(SaveOne, Wolf)
+wolfSTurns = [4, 6, 12]
+wolfDTurns = [2, 5, 8, 10, 11]
+Wolf = CharacterModule.Enemy("Dire Wolf", 35, 1, 2, wolfSTurns, [], wolfDTurns, AbilityModule.strengthen)
+#CombatModule.battle(SaveOne, Wolf)
+AbilityModule.getAbility(SaveOne, AbilityModule.strengthen, Wolf)
 
-#AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Raccoon)
+levelUp(SaveOne, Wolf, 5,1,0,1)
 
-#Chapter Bloody Boar
+#Chapter Cat
+#This chaper may need to be made easier
+Cat = CharacterModule.Enemy("Feral Cat", 40, 4, 2, [3, 14, 17], [], [2, 5, 8, 9, 11, 12], AbilityModule.shred)
+#CombatModule.battle(SaveOne, Cat)
+AbilityModule.getAbility(SaveOne, AbilityModule.shred, Cat)
+
+levelUp(SaveOne, Cat, 5,1,0,1)
+
+
+#Chapter Lazy pig
 UIModule.clear()
 print("A wild Pig appears!")
 UIModule.wait()
-pigSTurns = [2,7,8,10,12,16,20]
+pigSTurns = []
 pigGTurns = []
-Pig = CharacterModule.Enemy("Pig",40,4,1,pigSTurns,pigGTurns,[],AbilityModule.heal)
-CombatModule.battle(SaveOne, Pig)
+Pig = CharacterModule.Enemy("Pig",50,3,1,pigSTurns,pigGTurns, [5, 10, 15, 20], AbilityModule.heal)
+#CombatModule.battle(SaveOne, Pig)
+AbilityModule.getAbility(SaveOne, AbilityModule.heal, Pig)
 
 UIModule.clear()
-levelUp(SaveOne, Pig, 20,3,1,1)
+levelUp(SaveOne, Pig, 10,1,1,1)
 UIModule.wait()
 
 #Chapter Orc 

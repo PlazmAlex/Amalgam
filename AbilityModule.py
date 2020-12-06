@@ -46,7 +46,7 @@ def useAbility(ability, user, opponent):
     target = user if ability.target == "user" else opponent
     if ability.guardable and target.guard:
         UIModule.clear()
-        print(target.name + " guarded itself against " + ability.name + "!")
+        print(target.name + " guarded itself from " + ability.name + "!")
         user.abilityUsed = True
         user.lastAbilityUsed[0] = ability
         user.AP -= 1

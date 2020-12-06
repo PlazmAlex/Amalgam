@@ -54,8 +54,8 @@ def battle(player, enemy):
         #Time Loop Check
         #if player.timeLoop == 0:  
          
-        print("\n" + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
-        ")  Ability Points (" + str(player.AP) + "/" + str(player.maxAP) + ") " +
+        print("\n" + UIModule.color.lightBlue + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
+        ")  Ability Points (" + str(player.AP) + "/" + str(player.maxAP) + ") " + UIModule.color.endColor +
          UIModule.color.red + playerBleed + UIModule.color.endColor +
         "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) +
          ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
@@ -86,7 +86,7 @@ def battle(player, enemy):
         #Enemy Action
         if enemy.hp > 0 and enemy.guard == False and enemy.debuff == False:
             dealDamage(enemy, player)
-        elif enemy.debuff == True:
+        elif enemy.debuff == True and enemy.hp > 0:
             AbilityModule.useAbility(enemy.ability,enemy, player)
         #------------
         #End of Turn effects
@@ -136,10 +136,11 @@ def battle(player, enemy):
 #It then displays text to the player about what the enemy will do while getting the enemy
 #ready to perform it
 def turnCheck(turn, enemy, player):
+    guardText = (UIModule.color.blue + " (Blockable)" + UIModule.color.endColor) if enemy.ability.guardable == True else ""
     intentWarnings = {
         "superAttack" : "unleash a devastating attack",
         "guard" : "guard itself",
-        "debuff" : "use " + enemy.ability.name
+        "debuff" : "use " + enemy.ability.name + guardText
         }
     vulnerableText = ""
     normalTurn = True
