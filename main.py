@@ -38,6 +38,7 @@ def initialize_game():
     response = input("[Enter number to select menu option]\n\n1) New Run\n2) Class\n")
     
     if response == "2":
+        UIModule.clear()
         print("No other classes unlocked")
         UIModule.wait()
         initialize_game()
@@ -80,7 +81,7 @@ UIModule.wait()
 while(True):
     Rat = CharacterModule.Enemy("Rat", 25, 3, 1,
     [3,4,9,12,15], [], [], AbilityModule.default)
-    #CombatModule.battle(SaveOne, Rat)
+    CombatModule.battle(SaveOne, Rat)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -98,7 +99,7 @@ wolfDTurns = [2, 5, 8, 10, 11]
 while(True):
     Wolf = CharacterModule.Enemy("Dire Wolf", 35, 1, 2,
     wolfSTurns, [], wolfDTurns, AbilityModule.strengthen)
-    #CombatModule.battle(SaveOne, Wolf)
+    CombatModule.battle(SaveOne, Wolf)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -111,13 +112,13 @@ AbilityModule.getAbility(SaveOne, AbilityModule.strengthen, Wolf)
 levelUp(SaveOne, Wolf, 5,1,0,1)
 
 #Chapter Cat
-#This chaper may need to be made easier
+
 
 
 while(True):
     Cat = CharacterModule.Enemy("Feral Cat", 40, 4, 2,
     [3, 14, 17], [], [2, 5, 8, 9, 11, 12], AbilityModule.shred)
-    #CombatModule.battle(SaveOne, Cat)
+    CombatModule.battle(SaveOne, Cat)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue

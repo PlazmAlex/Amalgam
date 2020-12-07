@@ -25,7 +25,7 @@ def dealDamage(attacker, defender):
         attacker.superAttack = False
     elif defender.vulnerable == True:
         damage = damage * 2
-        critical = (UIModule.color.blue + "!!!Critical Strike!!!\n\n" + UIModule.color.endColor)
+        critical = (UIModule.color.lightBlue + "!!!Critical Strike!!!\n\n" + UIModule.color.endColor)
     if damage <= 0:
         damage = 1
     defender.hp = defender.hp - damage
@@ -136,7 +136,7 @@ def battle(player, enemy):
 #It then displays text to the player about what the enemy will do while getting the enemy
 #ready to perform it
 def turnCheck(turn, enemy, player):
-    guardText = (UIModule.color.blue + " (Blockable)" + UIModule.color.endColor 
+    guardText = (UIModule.color.lightBlue + " (Blockable)" + UIModule.color.endColor 
     + UIModule.color.yellow) if enemy.ability.guardable == True else ""
     intentWarnings = {
         "superAttack" : "unleash a devastating attack",
