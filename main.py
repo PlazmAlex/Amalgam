@@ -131,12 +131,13 @@ slothSTurns, slothGTurns, slothDTurns,AbilityModule.shred)
 #CombatModule.battle(SaveOne, SavageSloth)
 levelUp(SaveOne, SavageSloth, 25,2,1,1)
 
-paladinSTurns = []
-paladinGTurns = []
-paladinDTurns = []
-Paladin =  CharacterModule.Enemy("Paladin", 90, 12, 3,
+paladinSTurns = [num for num in range(2,50,5)]
+paladinGTurns = [num for num in range(3,50,5)]
+paladinDTurns = [num for num in range(4,50,5)]
+Paladin =  CharacterModule.Enemy("Paladin", 80, 13, 3,
 paladinSTurns, paladinGTurns, paladinDTurns, AbilityModule.heal)
 AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Paladin)
+#CombatModule.battle(SaveOne, Paladin)
 
 ogreSTurns = []
 ogreGTurns = []
@@ -144,6 +145,7 @@ ogreDTurns = []
 Ogre =CharacterModule.Enemy("Giant Ogre", 150, 15, 2,
 ogreSTurns, ogreDTurns, ogreDTurns, AbilityModule.strengthen)
 levelUp(SaveOne, Ogre, 30,2,1,0)
+CombatModule.battle(SaveOne, Ogre)
 
 """
 tortoiseSTurns = []
