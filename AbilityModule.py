@@ -21,12 +21,12 @@ Eviscerate = Ability("Eviscerate", "bleed", "+", 4, None, True, "opponent",
 " has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
 disembowel = Ability("Disembowel", "bleed", "+", 5, None, True, "opponent",
 " hes been gutted!", "Increase enemy's bleed by 5. Each bleed deal 1 damage per turn." )
-heal = Ability("Heal", "maxhp", "*", .5, None, False, "user",
-" healed!", "Restore 50% of your max HP.")
-rejuvinate = Ability("Rejuvinate", "maxhp", "*", .7, None, False, "user",
-" feels rejuvinated!", "Restore 70% of your HP.")
-revitalize = Ability("Revitalize", "maxhp", "*", 1, None, False, "user",
-" has been revitalized!", "Restore all of your HP.")
+heal = Ability("Heal", "maxhp", "*", .4, None, False, "user",
+" healed!", "Restore 40% of your max HP.")
+rejuvinate = Ability("Rejuvinate", "maxhp", "*", .6, None, False, "user",
+" feels rejuvinated!", "Restore 60% of your HP.")
+revitalize = Ability("Revitalize", "maxhp", "*", .8, None, False, "user",
+" has been revitalized!", "Restore 80% of your HP.")
 strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
 " grew stronger!", "Increase your attack power by 2 until end of battle.")
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",
@@ -38,8 +38,8 @@ timeLoop = Ability("Time Loop", "timeLoop", "+", 1, 3, False, "opponent",
 "Opponent must repeat action used this turn 2 more times!")
 weaken = Ability("Weaken", "attack", "-", 4, 3, True, "opponent",
 " was weakend for two turns", "Lower opponent's attack power by 4 for two turns." )
-shriek = Ability("Shriek", "defense", "-", 3, 3, True, "opponent",
-" is trembling for two turns", "Lower opponent's defense by 3 for two turns." )
+shriek = Ability("Shriek", "defense", "-", 2, 3, True, "opponent",
+" is trembling for two turns", "Lower opponent's defense by 2 for two turns." )
 
 def getAbility(player, ability, enemy):
     UIModule.clear()

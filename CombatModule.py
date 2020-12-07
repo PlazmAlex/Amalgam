@@ -126,11 +126,11 @@ def battle(player, enemy):
         print((player.name + " survived!"))
         UIModule.wait()
     else:
-        player.hp = player.maxhp
         UIModule.clear()
         print((player.name + " died!"))#Need lose function
         UIModule.wait()
-        sys.exit(0)
+        UIModule.clear()
+        
 
 #This checks what the enemy will do by checking the turn counter vs it's lists of actions
 #It then displays text to the player about what the enemy will do while getting the enemy
@@ -223,3 +223,18 @@ def applyBleed(character):
         UIModule.clear()
         print((character.name + " bled out!"))
         UIModule.wait()
+
+def retry(player):
+    while(True):
+        UIModule.clear()
+        print("Retry last battle?")
+        print("\n1) Yes")
+        print("\n2) Give Up")
+        choice = input()
+        if choice  == "1":
+            player.hp = player.maxhp
+            return True
+        if choice  == "2":
+            return False
+        else:
+            continue
