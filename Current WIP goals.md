@@ -1,10 +1,4 @@
-Communicate what ability an enemy will use
-    Can enemys have more than one ablitiy?
-    if so how to determine which one they will use
-    how to communicate what the ability will do?
-
-Get rid of loot functionality. Too confusing. Too much text on screen.
-    possibly add the loot flavor after ablity is chosen to signify gaining ability.
+Add level 3 abilities
 
 Info screen
     displys stats?

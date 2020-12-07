@@ -126,33 +126,27 @@ AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, 
 slothSTurns = [6,15,18,23,26,30,35,38,41,42,43,44,45]
 slothGTurns = [4,5,9,14,16,20,21,24,25,31,32,33,34,36,37]
 slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
-SavageSloth = CharacterModule.Enemy("Savage Sloth", 100, 10, 1,
+SavageSloth = CharacterModule.Enemy("Savage Sloth", 90, 9, 1,
 slothSTurns, slothGTurns, slothDTurns,AbilityModule.shred)
 #CombatModule.battle(SaveOne, SavageSloth)
 levelUp(SaveOne, SavageSloth, 25,2,1,1)
 
-paladinSTurns = [num for num in range(2,50,5)]
-paladinGTurns = [num for num in range(3,50,5)]
-paladinDTurns = [num for num in range(4,50,5)]
-Paladin =  CharacterModule.Enemy("Paladin", 80, 13, 3,
+paladinSTurns = [num for num in range(2,100,5)]
+paladinGTurns = [num for num in range(3,100,5)]
+paladinDTurns = [num for num in range(4,100,5)]
+Paladin =  CharacterModule.Enemy("Paladin", 65, 13, 3,
 paladinSTurns, paladinGTurns, paladinDTurns, AbilityModule.heal)
-AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Paladin)
 #CombatModule.battle(SaveOne, Paladin)
+AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Paladin)
 
-ogreSTurns = []
+ogreSTurns = [5,10,15,17,19]
 ogreGTurns = []
-ogreDTurns = []
-Ogre =CharacterModule.Enemy("Giant Ogre", 150, 15, 2,
-ogreSTurns, ogreDTurns, ogreDTurns, AbilityModule.strengthen)
+ogreDTurns = [1,2,3,18]
+Ogre =CharacterModule.Enemy("Monstrous Ogre", 120, 9, 2,
+ogreSTurns, ogreGTurns, ogreDTurns, AbilityModule.strengthen)
+#CombatModule.battle(SaveOne, Ogre)
 levelUp(SaveOne, Ogre, 30,2,1,0)
-CombatModule.battle(SaveOne, Ogre)
 
-"""
-tortoiseSTurns = []
-tortoiseGTurns = []
-tortoiseDTurns = []
-Tortoise = CharacterModule.Enemy("Continental Tortoise")
-"""
 #Chapter Mage
 mageSTurns = []
 for x in range(1,100,5):
@@ -161,24 +155,44 @@ for x in range(1,100,5):
 mageGTurns = []
 for x in range(3,100,5):
     mageGTurns.append(x)
-    mageGTurns.append(x+1)
 mageDTurns = []
 for x in range(5,100,5):
     mageDTurns.append(x)
 CombatModule.mageEffect = True
-temporalMage = CharacterModule.Enemy("Temporal Mage",191,13,2,
+temporalMage = CharacterModule.Enemy("Temporal Archmage",250,14,2,
 mageSTurns, mageGTurns, mageDTurns, AbilityModule.timeLoop)
-UIModule.wait()
-CombatModule.battle(SaveOne, temporalMage)
+#CombatModule.battle(SaveOne, temporalMage)
+CombatModule.mageEffect = False
+AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], temporalMage)
 
-UIModule.clear()
-print((SaveOne.name + " defeated " + temporalMage.name + "!"))
-UIModule.wait()
+#Angel
+angelSTurns = [num for num in range(3,100,3)]
+angelGTurns = [num for num in range(2,100,3)]
+angelDTurns = [num for num in range(1,100,3)]
+Angel = CharacterModule.Enemy("Angel", 300, 16, 3,
+angelSTurns, angelGTurns, angelDTurns, AbilityModule.weaken)
+#CombatModule.battle(SaveOne, Angel)
 
-UIModule.clear()
-print("Temporal mage class unlocked!!")
-UIModule.wait()
+levelUp(SaveOne, Angel, 50, 3, 1, 1)
 
-UIModule.clear()
-print("But not yet...\nComing soon!")
-UIModule.wait() 
+#Demon
+demonSTurns = []
+demonGTurns = []
+for num in range(2,100,3):
+    demonSTurns.append(num)
+    demonSTurns.append(num+1)
+demonDTurns = [num for num in range(1,100,3)]
+Demon = CharacterModule.Enemy("Demon", 300, 20, 2,
+demonSTurns, demonGTurns, demonDTurns, AbilityModule.shriek)
+CombatModule.battle(SaveOne, Demon)
+#Tortoise
+"""
+tortoiseSTurns = [5,10,15,20,25,30]
+tortoiseGTurns = [1,2,3,4,6,7,8,9]
+tortoiseDTurns = []
+Tortoise = CharacterModule.Enemy("Continental Tortoise",500, 20, 4,
+tortoiseSTurns, tortoiseGTurns, tortoiseDTurns, AbilityModule.default)
+CombatModule.battle(SaveOne, Tortoise)
+"""
+
+#Dragon

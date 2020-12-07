@@ -96,7 +96,7 @@ def battle(player, enemy):
             applyDurationDecay(enemy)
         if player.timeLoop > 0:
             UIModule.clear()
-            print((player.name + " is stuck in a time loop!"))
+            print(player.name + " is stuck in a time loop!")
             UIModule.wait()
         player.canUseAbilities = True
         player.guard = False
@@ -136,7 +136,8 @@ def battle(player, enemy):
 #It then displays text to the player about what the enemy will do while getting the enemy
 #ready to perform it
 def turnCheck(turn, enemy, player):
-    guardText = (UIModule.color.blue + " (Blockable)" + UIModule.color.endColor) if enemy.ability.guardable == True else ""
+    guardText = (UIModule.color.blue + " (Blockable)" + UIModule.color.endColor 
+    + UIModule.color.yellow) if enemy.ability.guardable == True else ""
     intentWarnings = {
         "superAttack" : "unleash a devastating attack",
         "guard" : "guard itself",

@@ -19,17 +19,27 @@ shred = Ability("Shred","bleed", "+", 2, None, True, "opponent",
 " has been shredded!","Increase enemy's bleed by 2. Each bleed deals 1 damage per turn.")
 Eviscerate = Ability("Eviscerate", "bleed", "+", 4, None, True, "opponent",
 " has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
-heal = Ability("Heal", "maxhp", "*", .7, None, False, "user",
-" healed!", "Restore 70% of your max HP.")
-rejuvinate = Ability("Rejuvinate", "maxhp", "*", 1, None, False, "user",
-" feels rejuvinated!", "Restore all of your HP")
+disembowel = Ability("Disembowel", "bleed", "+", 5, None, True, "opponent",
+" hes been gutted!", "Increase enemy's bleed by 5. Each bleed deal 1 damage per turn." )
+heal = Ability("Heal", "maxhp", "*", .5, None, False, "user",
+" healed!", "Restore 50% of your max HP.")
+rejuvinate = Ability("Rejuvinate", "maxhp", "*", .7, None, False, "user",
+" feels rejuvinated!", "Restore 70% of your HP.")
+revitalize = Ability("Revitalize", "maxhp", "*", 1, None, False, "user",
+" has been revitalized!", "Restore all of your HP.")
 strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
-" grew stronger!", "Increase your attack power by 2 until end of battle")
+" grew stronger!", "Increase your attack power by 2 until end of battle.")
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",
 " ROARED!", "Increase your attack power by 3 until end of battle.")
+rage = Ability("Rage", "attack", "+", 4, None, False, "user",
+" is seething with power!", "Increase your attack power by 4 until end of battle.")
 timeLoop = Ability("Time Loop", "timeLoop", "+", 1, 3, False, "opponent", 
 " was put in a time loop!\n\nIt must repeat its last action!",
 "Opponent must repeat action used this turn 2 more times!")
+weaken = Ability("Weaken", "attack", "-", 4, 3, True, "opponent",
+" was weakend for two turns", "Lower opponent's attack power by 4 for two turns." )
+shriek = Ability("Shriek", "defense", "-", 3, 3, True, "opponent",
+" is trembling for two turns", "Lower opponent's defense by 3 for two turns." )
 
 def getAbility(player, ability, enemy):
     UIModule.clear()
@@ -75,7 +85,8 @@ def useAbility(ability, user, opponent):
     print(user.name + " used " + ability.name)
     input()
     print(target.name + ability.flavor)
-    print(statName.title() + " + " + str(statChange))
+    modifier = " + " if statChange >= 0 else " "
+    print(statName.title() + modifier + str(statChange))
     UIModule.wait()
     if ability.duration != None:
         #Track ability effects in character class
@@ -163,26 +174,30 @@ def abilityUpgrade(player,abilities,enemy):
             continue
         response = input()
         UIModule.clear()
-    choice = abilitiesList[int(response)-1]
-    if choice not in player.abilities:
+    choice = abilities[int(response)-1]
+    if choice not in player.allAbilities:
         #if the player does not have the chosen ability
         player.abilities.append(choice)
         player.allAbilities.append(choice)
-    while choice in player.abilities:
-        #if the player already has the chosen ability
-        player.abilities[player.abilities.index(choice)] = abilityPlus(choice)
-        #upgrade the ability and replace the old one
-        player.allAbilities.append(abilityPlus(choice))
+        return
+        #if the player already has the chosen ability  
+    while choice in player.allAbilities:
+        if choice in player.abilities:
+            index = player.abilities.index(choice)
         choice = abilityPlus(choice)
-        if choice == abilityPlus(choice):
-            #if the ability cannot be upgraded anymore
-            break
+    player.abilities[index] = choice
+    player.allAbilities.append(choice)
+
+    
 UIModule.clear()
 
 abilityLevelUp = {
     strengthen : bellow,
+    bellow : rage,
     shred : Eviscerate,
-    heal : rejuvinate
+    Eviscerate : disembowel,
+    heal : rejuvinate,
+    rejuvinate : revitalize
 }
 def abilityPlus(ability):
     return abilityLevelUp.get(ability, ability)
