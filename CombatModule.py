@@ -21,7 +21,7 @@ def dealDamage(attacker, defender):
     damage = attacker.attack - defense
     if attacker.superAttack == True:
         damage = damage * 3
-        devastate = (UIModule.color.red + "!!Devastating Attack!!\n\n" + UIModule.color.endColor)
+        devastate = (UIModule.color.lightRed + "!!Devastating Attack!!\n\n" + UIModule.color.endColor)
         attacker.superAttack = False
     elif defender.vulnerable == True:
         damage = damage * 2
@@ -56,9 +56,9 @@ def battle(player, enemy):
          
         print("\n" + UIModule.color.lightBlue + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
         ")  Ability Points (" + str(player.AP) + "/" + str(player.maxAP) + ") " + UIModule.color.endColor +
-         UIModule.color.red + playerBleed + UIModule.color.endColor +
+         UIModule.color.lightRed + playerBleed + UIModule.color.endColor +
         "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) +
-         ")" + UIModule.color.red + enemyBleed + UIModule.color.endColor +
+         ")" + UIModule.color.lightRed + enemyBleed + UIModule.color.endColor +
         "\n")
         n = 1
         print("[Enter number to select battle option]\n")
@@ -70,7 +70,6 @@ def battle(player, enemy):
         if player.timeLoop == 1:
             if input() == "1":
                 choice = "1"
-                pass
             else:
                 continue
         else:
@@ -120,6 +119,7 @@ def battle(player, enemy):
     player.attack = player.maxattack
     player.defense = player.maxdefense
     player.AP = player.maxAP
+    player.timeLoop = 0
     if player.hp > 0:
         player.hp = player.maxhp
         UIModule.clear()

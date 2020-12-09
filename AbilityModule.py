@@ -31,7 +31,7 @@ strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
 " grew stronger!", "Increase your attack power by 2 until end of battle.")
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",
 " ROARED!", "Increase your attack power by 3 until end of battle.")
-rage = Ability("Rage", "attack", "+", 4, None, False, "user",
+rage = Ability("Rage", "attack", "+", 5, None, False, "user",
 " is seething with power!", "Increase your attack power by 4 until end of battle.")
 timeLoop = Ability("Time Loop", "timeLoop", "+", 1, 3, False, "opponent", 
 " was put in a time loop!\n\nIt must repeat its last action!",
@@ -120,7 +120,7 @@ def displayAbilities(player, enemy):
         for x in player.abilities:
             print(str(n) + ") " + x.name + "\n   -" + x.description + "\n")
             n = n + 1
-        print(UIModule.color.blue + (str(n) + ") " + "Back") + UIModule.color.endColor)
+        print(UIModule.color.lightBlue + (str(n) + ") " + "Back") + UIModule.color.endColor)
         choice = input()
     if int(choice) == len(player.abilities) + 1:
         return 0

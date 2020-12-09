@@ -13,4 +13,5 @@ class color:
     blue = "\u001b[34m"
     yellow = "\u001b[33m"
     lightBlue = "\033[94m"
+    lightRed = '\033[91m'
     endColor = "\u001b[0m"

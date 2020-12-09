@@ -157,7 +157,7 @@ orcGTurns = [3,4,8,9,14,17,19,21,25]
 
 
 while(True):
-    Orc = CharacterModule.Enemy("Young Orc",50,9,3,
+    Orc = CharacterModule.Enemy("Young Orc",40,9,3,
     orcSTurns,orcGTurns,[],AbilityModule.default)
     CombatModule.battle(SaveOne, Orc)
     if SaveOne.hp <= 0:
@@ -176,7 +176,7 @@ slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
 
 
 while(True):
-    SavageSloth = CharacterModule.Enemy("Savage Sloth", 100, 9, 1,
+    SavageSloth = CharacterModule.Enemy("Savage Sloth", 90, 9, 1,
     slothSTurns, slothGTurns, slothDTurns,AbilityModule.shred)
     CombatModule.battle(SaveOne, SavageSloth)
     if SaveOne.hp <= 0:
@@ -237,7 +237,7 @@ for x in range(5,100,5):
 CombatModule.mageEffect = True
 
 while(True):
-    temporalMage = CharacterModule.Enemy("Temporal Archmage",250,14,2,
+    temporalMage = CharacterModule.Enemy("Temporal Archmage",250,13,2,
     mageSTurns, mageGTurns, mageDTurns, AbilityModule.timeLoop)
     CombatModule.battle(SaveOne, temporalMage)
     if SaveOne.hp <= 0:
@@ -249,7 +249,8 @@ while(True):
 
 CombatModule.mageEffect = False
 AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], temporalMage)
-
+SaveOne.timeLoop = 0
+SaveOne.currentOptions = SaveOne.battleOptions
 #Angel
 angelSTurns = [num for num in range(3,100,3)]
 angelGTurns = [num for num in range(2,100,3)]
@@ -278,7 +279,7 @@ for num in range(2,100,4):
 demonDTurns = [num for num in range(1,100,4)]
 
 while(True):
-    Demon = CharacterModule.Enemy("Demon", 230, 21, 2,
+    Demon = CharacterModule.Enemy("Demon", 230, 20, 2,
     demonSTurns, demonGTurns, demonDTurns, AbilityModule.shriek)
     CombatModule.battle(SaveOne, Demon)
     if SaveOne.hp <= 0:
@@ -290,6 +291,10 @@ while(True):
 
 print("End of Demo")
 UIModule.wait
+UIModule.clear
+print("Thank you for playing my game!")
+
+UIModule.wait()
 #Tortoise
 """
 tortoiseSTurns = [5,10,15,20,25,30]
