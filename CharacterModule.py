@@ -30,7 +30,7 @@ class SaveFile:
         self.lastAbilityUsed = [""]
         self.lastAction = [""]
 class Enemy:
-    def __init__(self, name, hp, attack, defense,sTurns,gTurns,dTurns,ability):
+    def __init__(self, name, hp, attack, defense,sTurns,gTurns,dTurns, swapTurns, ability, altAbility):
         self.name = name
         #Stats
         self.hp = hp
@@ -55,7 +55,9 @@ class Enemy:
         self.superTurn = sTurns
         self.guardTurn = gTurns
         self.debuffTurn = dTurns
+        self.swapTurn = swapTurns
         #---
         self.ability = ability
+        self.altAbility = altAbility
         self.lastAbilityUsed = [""]
         self.lastAction = [""]

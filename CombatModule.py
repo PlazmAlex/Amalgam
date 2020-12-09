@@ -63,7 +63,7 @@ def battle(player, enemy):
         n = 1
         print("[Enter number to select battle option]\n")
         if player.timeLoop == 1:
-            player.currentOptions = player.lastAction
+            player.currentOptions = [player.lastAction]
         for x in player.currentOptions:
             print((str(n) + ") " + x))
             n += 1
@@ -104,7 +104,7 @@ def battle(player, enemy):
         enemy.debuff = False
         playerBleed = ""
         enemyBleed = ""
-        player.currentOptions = player.battleOptions
+        player.currentOptions = player.battleOptions[:]
         if (player.bleed > 0) and (enemy.hp > 0):   
             playerBleed = (" BLEED(" + str(player.bleed) + ")")
             applyBleed(player)
@@ -144,19 +144,24 @@ def turnCheck(turn, enemy, player):
     intentWarnings = {
         "superAttack" : "unleash a devastating attack",
         "guard" : "guard itself",
-        "debuff" : "use " + enemy.ability.name + guardText
+        "debuff" : "use " + enemy.ability.name + guardText,
+        "swap" : ""
         }
     vulnerableText = ""
     normalTurn = True
-    turnLists = ["superTurn", "guardTurn", "debuffTurn"]
-    battleIntents = ["superAttack", "guard",  "debuff"]
+    turnLists = ["superTurn", "guardTurn", "debuffTurn", "swapTurn"]
+    battleIntents = ["superAttack", "guard",  "debuff", "swap"]
     for index,list in enumerate(turnLists, 0):
         if turn in getattr(enemy, list):
             intent = battleIntents[index]
             if intent == "superAttack" or intent == "debuff":
-                #Think of a better way to tie vulnerability to these intentions
                 enemy.vulnerable = True
                 vulnerableText = "\n!!It looks vulnerable to attacks!!\n"
+            if intent == "swap":
+                x = enemy.ability.copy()
+                enemy.ability = enemy.altAbility.copy()
+                enemy.altAbility = x.copy()
+                continue
             setattr(enemy, intent, True)
             normalTurn = False
             print(UIModule.color.yellow + "\n!!" + enemy.name + " is going to " + intentWarnings[intent] + "!!\n" +
