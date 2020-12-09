@@ -290,8 +290,8 @@ while(True):
     break
 
 print("End of Demo")
-UIModule.wait
-UIModule.clear
+UIModule.wait()
+UIModule.clear()
 print("Thank you for playing my game!")
 
 UIModule.wait()

@@ -120,6 +120,9 @@ def battle(player, enemy):
     player.defense = player.maxdefense
     player.AP = player.maxAP
     player.timeLoop = 0
+    player.statDuration = []
+    player.statEffects = []
+    player.statChanges = []
     if player.hp > 0:
         player.hp = player.maxhp
         UIModule.clear()
