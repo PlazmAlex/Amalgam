@@ -20,7 +20,7 @@ shred = Ability("Shred","bleed", "+", 2, None, True, "opponent",
 Eviscerate = Ability("Eviscerate", "bleed", "+", 4, None, True, "opponent",
 " has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
 disembowel = Ability("Disembowel", "bleed", "+", 5, None, True, "opponent",
-" hes been gutted!", "Increase enemy's bleed by 5. Each bleed deal 1 damage per turn." )
+" has been gutted!", "Increase enemy's bleed by 5. Each bleed deals 1 damage per turn." )
 heal = Ability("Heal", "maxhp", "*", .4, None, False, "user",
 " healed!", "Restore 40% of your max HP.")
 rejuvinate = Ability("Rejuvinate", "maxhp", "*", .6, None, False, "user",
