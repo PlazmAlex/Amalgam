@@ -2,6 +2,7 @@ import UIModule
 import AbilityModule
 import sys
 import time
+import copy
 #mage effect is a bad implementation.
 #Need to create a class that handles turn based events independent of enemy
 mageEffect = False
@@ -40,6 +41,8 @@ def battle(player, enemy):
     turn = 1
     enemyBleed = ""
     playerBleed = ""
+    playerEnrage = ""
+    enemyEnrage = ""
     while enemy.hp > 0 and player.hp > 0:
         UIModule.clear()
         #Display info
@@ -50,20 +53,21 @@ def battle(player, enemy):
                 player.canUseAbilities = False
         turnCheck(turn, enemy, player)
         #-------------------
-
-        #Time Loop Check
-        #if player.timeLoop == 0:  
          
         print("\n" + UIModule.color.lightBlue + player.name + "'s HP (" + str(player.hp) + "/" + str(player.maxhp) +
         ")  Ability Points (" + str(player.AP) + "/" + str(player.maxAP) + ") " + UIModule.color.endColor +
-         UIModule.color.lightRed + playerBleed + UIModule.color.endColor +
-        "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) +
-         ")" + UIModule.color.lightRed + enemyBleed + UIModule.color.endColor +
+        UIModule.color.lightRed + playerBleed + UIModule.color.endColor +
+        UIModule.color.lightRed + playerEnrage + UIModule.color.endColor +
+        "\n\n" + enemy.name + "'s HP (" + str(enemy.hp) + "/" + str(enemy.maxhp) + ")" + 
+        UIModule.color.lightRed + enemyBleed + UIModule.color.endColor +
+        UIModule.color.lightRed + enemyEnrage +UIModule.color.endColor +
         "\n")
         n = 1
         print("[Enter number to select battle option]\n")
         if player.timeLoop == 1:
-            player.currentOptions = [player.lastAction]
+            limitOptions(player, [option for option in player.currentOptions if option != player.lastAction[0]])
+        elif player.enrage == 1:
+            limitOptions(player, [option for option in player.currentOptions if option != "Attack"])
         for x in player.currentOptions:
             print((str(n) + ") " + x))
             n += 1
@@ -97,6 +101,7 @@ def battle(player, enemy):
             UIModule.clear()
             print(player.name + " is stuck in a time loop!")
             UIModule.wait()
+        enemy.swapped = False
         player.canUseAbilities = True
         player.guard = False
         enemy.guard = False
@@ -104,12 +109,18 @@ def battle(player, enemy):
         enemy.debuff = False
         playerBleed = ""
         enemyBleed = ""
+        playerEnrage = ""
+        enemyEnrage = ""
         player.currentOptions = player.battleOptions[:]
+        if (player.enrage > 0):
+            playerEnrage = " <ENRAGED> "
+        if (enemy.enrage > 0):
+            enemyEnrage = " <ENRAGED> "
         if (player.bleed > 0) and (enemy.hp > 0):   
-            playerBleed = (" BLEED(" + str(player.bleed) + ")")
+            playerBleed = (" BLEED(" + str(player.bleed) + ") ")
             applyBleed(player)
         if enemy.bleed > 0:
-            enemyBleed = (" BLEED(" + str(enemy.bleed) + ")")
+            enemyBleed = (" BLEED(" + str(enemy.bleed) + ") ")
             applyBleed(enemy)
         #-------------
         turn += 1
@@ -141,29 +152,35 @@ def battle(player, enemy):
 def turnCheck(turn, enemy, player):
     guardText = (UIModule.color.lightBlue + " (Blockable)" + UIModule.color.endColor 
     + UIModule.color.yellow) if enemy.ability.guardable == True else ""
-    intentWarnings = {
-        "superAttack" : "unleash a devastating attack",
-        "guard" : "guard itself",
-        "debuff" : "use " + enemy.ability.name + guardText,
-        "swap" : ""
-        }
+
     vulnerableText = ""
     normalTurn = True
-    turnLists = ["superTurn", "guardTurn", "debuffTurn", "swapTurn"]
-    battleIntents = ["superAttack", "guard",  "debuff", "swap"]
+    turnLists = ["swapTurn", "superTurn", "guardTurn", "debuffTurn"]
+    battleIntents = ["swap","superAttack", "guard",  "debuff"]
     for index,list in enumerate(turnLists, 0):
+        intent = battleIntents[index]
+        if enemy.enrage == True:
+            break
         if turn in getattr(enemy, list):
-            intent = battleIntents[index]
+            if intent == "swap":
+                if enemy.swapped == True:
+                    continue
+                x = copy.copy(enemy.ability)
+                enemy.ability = copy.copy(enemy.altAbility)
+                enemy.altAbility = copy.copy(x)
+                enemy.swapped = True
+                continue
             if intent == "superAttack" or intent == "debuff":
                 enemy.vulnerable = True
                 vulnerableText = "\n!!It looks vulnerable to attacks!!\n"
-            if intent == "swap":
-                x = enemy.ability.copy()
-                enemy.ability = enemy.altAbility.copy()
-                enemy.altAbility = x.copy()
-                continue
             setattr(enemy, intent, True)
             normalTurn = False
+            intentWarnings = {
+            "superAttack" : "unleash a devastating attack",
+            "guard" : "guard itself",
+            "debuff" : "use " + enemy.ability.name + guardText,
+            "swap" : ""
+                }
             print(UIModule.color.yellow + "\n!!" + enemy.name + " is going to " + intentWarnings[intent] + "!!\n" +
             vulnerableText + UIModule.color.endColor)
     if normalTurn == True:
@@ -246,3 +263,6 @@ def retry(player):
             return False
         else:
             continue
+def limitOptions(player, disabledOptions):
+    for option in disabledOptions:
+        del player.currentOptions[player.currentOptions.index(option)]

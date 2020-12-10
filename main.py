@@ -81,7 +81,7 @@ UIModule.wait()
 while(True):
     Rat = CharacterModule.Enemy("Rat", 25, 3, 1,
     [3,4,9,12,15], [], [],[], AbilityModule.default, AbilityModule.default)
-    CombatModule.battle(SaveOne, Rat)
+    #CombatModule.battle(SaveOne, Rat)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -98,8 +98,8 @@ wolfDTurns = [2, 5, 8, 10, 11]
 
 while(True):
     Wolf = CharacterModule.Enemy("Dire Wolf", 35, 1, 2,
-    wolfSTurns, [], wolfDTurns, [4,6], AbilityModule.strengthen, AbilityModule.default)
-    CombatModule.battle(SaveOne, Wolf)
+    wolfSTurns, [], wolfDTurns, [], AbilityModule.strengthen, AbilityModule.default)
+    #CombatModule.battle(SaveOne, Wolf)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -119,7 +119,7 @@ while(True):
     Cat = CharacterModule.Enemy("Feral Cat", 40, 4, 2,
     [3, 14, 17], [], [2, 5, 8, 9, 11, 12], 
     [], AbilityModule.shred, AbilityModule.default)
-    CombatModule.battle(SaveOne, Cat)
+    #CombatModule.battle(SaveOne, Cat)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -140,7 +140,7 @@ pigGTurns = []
 while(True):
     Pig = CharacterModule.Enemy("Pig",70,3,1,
     pigSTurns,pigGTurns, [5, 10, 15, 20], [], AbilityModule.heal, AbilityModule.default)
-    CombatModule.battle(SaveOne, Pig)
+    #CombatModule.battle(SaveOne, Pig)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -160,7 +160,7 @@ orcGTurns = [3,4,8,9,14,17,19,21,25]
 while(True):
     Orc = CharacterModule.Enemy("Young Orc",40,9,3,
     orcSTurns,orcGTurns,[], [],AbilityModule.default, AbilityModule.default)
-    CombatModule.battle(SaveOne, Orc)
+    #CombatModule.battle(SaveOne, Orc)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -179,7 +179,7 @@ slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
 while(True):
     SavageSloth = CharacterModule.Enemy("Savage Sloth", 90, 9, 1,
     slothSTurns, slothGTurns, slothDTurns, [], AbilityModule.shred, AbilityModule.default)
-    CombatModule.battle(SaveOne, SavageSloth)
+    #CombatModule.battle(SaveOne, SavageSloth)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -196,7 +196,7 @@ paladinDTurns = [num for num in range(4,100,5)]
 while(True):
     Paladin =  CharacterModule.Enemy("Paladin", 70, 13, 3,
     paladinSTurns, paladinGTurns, paladinDTurns, [], AbilityModule.heal, AbilityModule.default)
-    CombatModule.battle(SaveOne, Paladin)
+    #CombatModule.battle(SaveOne, Paladin)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -214,7 +214,7 @@ ogreDTurns = [1,2,3,18]
 while(True):
     Ogre =CharacterModule.Enemy("Monstrous Ogre", 120, 10, 2,
     ogreSTurns, ogreGTurns, ogreDTurns, [], AbilityModule.strengthen, AbilityModule.default)
-    CombatModule.battle(SaveOne, Ogre)
+    #CombatModule.battle(SaveOne, Ogre)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -240,7 +240,8 @@ CombatModule.mageEffect = True
 while(True):
     temporalMage = CharacterModule.Enemy("Temporal Archmage",250,13,2,
     mageSTurns, mageGTurns, mageDTurns, [], AbilityModule.timeLoop, AbilityModule.default)
-    CombatModule.battle(SaveOne, temporalMage)
+    #
+    # CombatModule.battle(SaveOne, temporalMage)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -261,7 +262,7 @@ angelDTurns = [num for num in range(1,100,3)]
 while(True):
     Angel = CharacterModule.Enemy("Angel", 300, 16, 3,
     angelSTurns, angelGTurns, angelDTurns, [], AbilityModule.weaken, AbilityModule.default)
-    CombatModule.battle(SaveOne, Angel)
+    #CombatModule.battle(SaveOne, Angel)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -282,7 +283,7 @@ demonDTurns = [num for num in range(1,100,4)]
 while(True):
     Demon = CharacterModule.Enemy("Demon", 230, 21, 2,
     demonSTurns, demonGTurns, demonDTurns, [], AbilityModule.shriek, AbilityModule.default)
-    CombatModule.battle(SaveOne, Demon)
+    #CombatModule.battle(SaveOne, Demon)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -290,20 +291,32 @@ while(True):
             sys.exit(0)
     break
 
-print("End of Demo")
-UIModule.wait()
-UIModule.clear()
-print("Thank you for playing my game!")
+AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, AbilityModule.strengthen], Demon)
 
-UIModule.wait()
-#Tortoise
-"""
-tortoiseSTurns = [5,10,15,20,25,30]
-tortoiseGTurns = [1,2,3,4,6,7,8,9]
-tortoiseDTurns = []
-Tortoise = CharacterModule.Enemy("Continental Tortoise",500, 20, 4,
-tortoiseSTurns, tortoiseGTurns, tortoiseDTurns, AbilityModule.default)
-CombatModule.battle(SaveOne, Tortoise)
-"""
+warSTurns = []
+warGTurns = []
+warDTurns = []
+warswapTurns =[]
+#Could just use range 1 time and add digits depending on the turn action
+#Fix this later
+for num in range(2,100, 5):
+    warSTurns.append(num)
+    warSTurns.append(num + 1)
+for num in range(1, 100, 5):
+    warDTurns.append(num)
+    warswapTurns.append(num)
+    warDTurns.append(num + 3)
+    warDTurns.append(num + 4)
+for num in range(5, 100, 5):
+    warswapTurns.append(num)
 
-#Dragon
+while(True):
+    War = CharacterModule.Enemy("Horesman: War", 266, 20, 3, warSTurns, warGTurns, warDTurns, warswapTurns,
+    AbilityModule.enrage, AbilityModule.Eviscerate)
+    CombatModule.battle(SaveOne, War)
+    if SaveOne.hp <= 0:
+        if CombatModule.retry(SaveOne):
+            continue
+        else:
+            sys.exit(0)
+    break

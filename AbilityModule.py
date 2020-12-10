@@ -40,6 +40,8 @@ weaken = Ability("Weaken", "attack", "-", 4, 3, True, "opponent",
 " was weakend for two turns", "Lower opponent's attack power by 4 for two turns." )
 shriek = Ability("Shriek", "defense", "-", 2, 3, True, "opponent",
 " is trembling for two turns", "Lower opponent's defense by 2 for two turns." )
+enrage = Ability("Enrage", "enrage", "+", 1, 3, True, "opponent", " became enraged for two turns!",
+"Opponent can only attack for the next 2 turns")
 
 def getAbility(player, ability, enemy):
     UIModule.clear()

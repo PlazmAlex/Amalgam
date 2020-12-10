@@ -22,6 +22,7 @@ class SaveFile:
         self.statEffects = []
         self.statChanges = []
         self.statDuration = []
+        self.enrage = 0
         #===
         self.abilities = []
         self.allAbilities = []
@@ -50,6 +51,8 @@ class Enemy:
         self.statEffects = []
         self.statChanges = []
         self.statDuration = []
+        self.enrage = 0
+        self.swapped = True
         #---
         #Turn data
         self.superTurn = sTurns

@@ -5,13 +5,10 @@ All actions are doubled
 
 Better demon idea?
 Can't attack on even turns
+
 Guard -> Super -> Shriek -> Super -> Super (Repeat)
 
-
 Bellow -> Super -> Bellow -> Heal (Repeat)
-
-
-
 
 Burn -> Super -> Super -> Burn -> Strengthen -> Super -> Super (Repeat)
 
@@ -30,7 +27,7 @@ Skipped over ability gain text.
 
 Devastating text should be red
 
-Ability buff should green 
+Ability buff should green
 
 Ability buff should be yellow
 
