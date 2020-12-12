@@ -26,8 +26,8 @@ class SaveFile:
         #===
         self.abilities = []
         self.allAbilities = []
-        self.battleOptions = ["Attack", "Abilities", "Guard"]
-        self.currentOptions = ["Attack", "Abilities", "Guard"] 
+        self.battleOptions = ["Attack", "Abilities", "Guard", "Status"]
+        self.currentOptions = ["Attack", "Abilities", "Guard","Status"] 
         self.lastAbilityUsed = [""]
         self.lastAction = [""]
 class Enemy:

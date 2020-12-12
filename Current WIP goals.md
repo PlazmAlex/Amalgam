@@ -5,17 +5,16 @@ All actions are doubled
 
 Better demon idea?
 Can't attack on even turns
-
+===============
 Guard -> Super -> Shriek -> Super -> Super (Repeat)
-
+===============
 Bellow -> Super -> Bellow -> Heal (Repeat)
-
+==============
 Burn -> Super -> Super -> Burn -> Strengthen -> Super -> Super (Repeat)
-
+==============
 Enrage -> Super -> Super -> Enrage -> Eviscerate (Repeat)
 
-Does whatever you do.
-
+======================================================================
 Info screen
     displys stats?
     displays enemy abilities and what they do
@@ -34,4 +33,3 @@ Ability buff should be yellow
 More incentive to not guard
 
 Change up late game battles
-#

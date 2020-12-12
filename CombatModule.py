@@ -208,6 +208,14 @@ def getAbilities(player, enemy):
 def guard(player, enemy):
     player.guard = True
 
+def status(player, enemy):
+    UIModule.clear()
+    print(player.name) 
+    print("Defense - " + str(player.defense))
+    print("Attack - " + str(player.attack))
+    UIModule.wait()
+    return 0
+
 #This takes the player input on the battle menu and executes a function associated with
 #the selected option
 #it returns 0 if the player's selection did nothing, allowing them to repeat the choice
@@ -219,7 +227,8 @@ def applyMenuChoice(player, enemy, choice):
 menuOptions = {
         "Attack" : dealDamage,
         "Abilities" :  getAbilities,
-        "Guard" : guard
+        "Guard" : guard,
+        "Status" : status
     } 
 
 def applyDurationDecay(character):

@@ -270,7 +270,7 @@ while(True):
             sys.exit(0)
     break
 
-levelUp(SaveOne, Angel, 25, 1, 2, 1)
+levelUp(SaveOne, Angel, 25, 1, 1, 1)
 
 #Demon
 demonSTurns = []
@@ -281,9 +281,9 @@ for num in range(2,100,4):
 demonDTurns = [num for num in range(1,100,4)]
 
 while(True):
-    Demon = CharacterModule.Enemy("Demon", 230, 21, 2,
+    Demon = CharacterModule.Enemy("Demon", 230, 20, 2,
     demonSTurns, demonGTurns, demonDTurns, [], AbilityModule.shriek, AbilityModule.default)
-    #CombatModule.battle(SaveOne, Demon)
+    CombatModule.battle(SaveOne, Demon)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -311,7 +311,7 @@ for num in range(5, 100, 5):
     warswapTurns.append(num)
 
 while(True):
-    War = CharacterModule.Enemy("Horesman: War", 266, 20, 3, warSTurns, warGTurns, warDTurns, warswapTurns,
+    War = CharacterModule.Enemy("Horseman: War", 333, 18, 3, warSTurns, warGTurns, warDTurns, warswapTurns,
     AbilityModule.enrage, AbilityModule.Eviscerate)
     CombatModule.battle(SaveOne, War)
     if SaveOne.hp <= 0:
