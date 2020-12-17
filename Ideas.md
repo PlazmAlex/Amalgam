@@ -1,7 +1,10 @@
 Next 4 fun battles
 Ideas
+Maybe nerf heal line to 25 50 75
 
 All actions are doubled
+
+Problem. Abilities that deal set numbers are inherently gonna 
 
 Better demon idea?
 Can't attack on even turns

@@ -21,12 +21,12 @@ Eviscerate = Ability("Eviscerate", "bleed", "+", 4, None, True, "opponent",
 " has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
 disembowel = Ability("Disembowel", "bleed", "+", 5, None, True, "opponent",
 " has been gutted!", "Increase enemy's bleed by 5. Each bleed deals 1 damage per turn." )
-heal = Ability("Heal", "maxhp", "*", .4, None, False, "user",
-" healed!", "Restore 40% of your max HP.")
-rejuvinate = Ability("Rejuvinate", "maxhp", "*", .6, None, False, "user",
-" feels rejuvinated!", "Restore 60% of your HP.")
-revitalize = Ability("Revitalize", "maxhp", "*", .8, None, False, "user",
-" has been revitalized!", "Restore 80% of your HP.")
+heal = Ability("Heal", "maxhp", "*", .25, None, False, "user",
+" healed!", "Restore 25% of your max HP.")
+rejuvinate = Ability("Rejuvinate", "maxhp", "*", .50, None, False, "user",
+" feels rejuvinated!", "Restore 50% of your HP.")
+revitalize = Ability("Revitalize", "maxhp", "*", .75, None, False, "user",
+" has been revitalized!", "Restore 75% of your HP.")
 strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
 " grew stronger!", "Increase your attack power by 2 until end of battle.")
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",

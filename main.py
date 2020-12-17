@@ -281,7 +281,7 @@ for num in range(2,100,4):
 demonDTurns = [num for num in range(1,100,4)]
 
 while(True):
-    Demon = CharacterModule.Enemy("Demon", 230, 20, 2,
+    Demon = CharacterModule.Enemy("Demon", 225, 20, 2,
     demonSTurns, demonGTurns, demonDTurns, [], AbilityModule.shriek, AbilityModule.default)
     CombatModule.battle(SaveOne, Demon)
     if SaveOne.hp <= 0:
