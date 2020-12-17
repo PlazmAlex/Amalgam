@@ -138,9 +138,9 @@ pigGTurns = []
 
 
 while(True):
-    Pig = CharacterModule.Enemy("Pig",70,3,1,
+    Pig = CharacterModule.Enemy("Pig",60,3,3,
     pigSTurns,pigGTurns, [5, 10, 15, 20], [], AbilityModule.heal, AbilityModule.default)
-    #CombatModule.battle(SaveOne, Pig)
+    CombatModule.battle(SaveOne, Pig)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -158,9 +158,9 @@ orcGTurns = [3,4,8,9,14,17,19,21,25]
 
 
 while(True):
-    Orc = CharacterModule.Enemy("Young Orc",40,9,3,
+    Orc = CharacterModule.Enemy("Young Orc",45,9,3,
     orcSTurns,orcGTurns,[], [],AbilityModule.default, AbilityModule.default)
-    #CombatModule.battle(SaveOne, Orc)
+    CombatModule.battle(SaveOne, Orc)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -179,7 +179,7 @@ slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
 while(True):
     SavageSloth = CharacterModule.Enemy("Savage Sloth", 90, 9, 1,
     slothSTurns, slothGTurns, slothDTurns, [], AbilityModule.shred, AbilityModule.default)
-    #CombatModule.battle(SaveOne, SavageSloth)
+    CombatModule.battle(SaveOne, SavageSloth)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -196,7 +196,7 @@ paladinDTurns = [num for num in range(4,100,5)]
 while(True):
     Paladin =  CharacterModule.Enemy("Paladin", 70, 13, 3,
     paladinSTurns, paladinGTurns, paladinDTurns, [], AbilityModule.heal, AbilityModule.default)
-    #CombatModule.battle(SaveOne, Paladin)
+    CombatModule.battle(SaveOne, Paladin)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -214,7 +214,7 @@ ogreDTurns = [1,2,3,18]
 while(True):
     Ogre =CharacterModule.Enemy("Monstrous Ogre", 120, 10, 2,
     ogreSTurns, ogreGTurns, ogreDTurns, [], AbilityModule.strengthen, AbilityModule.default)
-    #CombatModule.battle(SaveOne, Ogre)
+    CombatModule.battle(SaveOne, Ogre)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -240,8 +240,8 @@ CombatModule.mageEffect = True
 while(True):
     temporalMage = CharacterModule.Enemy("Temporal Archmage",250,13,2,
     mageSTurns, mageGTurns, mageDTurns, [], AbilityModule.timeLoop, AbilityModule.default)
-    #
-    # CombatModule.battle(SaveOne, temporalMage)
+    
+    CombatModule.battle(SaveOne, temporalMage)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -262,7 +262,7 @@ angelDTurns = [num for num in range(1,100,3)]
 while(True):
     Angel = CharacterModule.Enemy("Angel", 300, 16, 3,
     angelSTurns, angelGTurns, angelDTurns, [], AbilityModule.weaken, AbilityModule.default)
-    #CombatModule.battle(SaveOne, Angel)
+    CombatModule.battle(SaveOne, Angel)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
