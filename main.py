@@ -140,7 +140,7 @@ pigGTurns = []
 while(True):
     Pig = CharacterModule.Enemy("Pig",60,3,3,
     pigSTurns,pigGTurns, [5, 10, 15, 20], [], AbilityModule.heal, AbilityModule.default)
-    CombatModule.battle(SaveOne, Pig)
+    #CombatModule.battle(SaveOne, Pig)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -158,7 +158,7 @@ orcGTurns = [3,4,8,9,14,17,19,21,25]
 
 
 while(True):
-    Orc = CharacterModule.Enemy("Young Orc",45,9,3,
+    Orc = CharacterModule.Enemy("Young Orc",45,9,2,
     orcSTurns,orcGTurns,[], [],AbilityModule.default, AbilityModule.default)
     CombatModule.battle(SaveOne, Orc)
     if SaveOne.hp <= 0:
