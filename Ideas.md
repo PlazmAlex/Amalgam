@@ -1,10 +1,8 @@
 Next 4 fun battles
 Ideas
-Maybe nerf heal line to 25 50 75
 
 All actions are doubled
 
-Problem. Abilities that deal set numbers are inherently gonna 
 
 Better demon idea?
 Can't attack on even turns
@@ -23,6 +21,9 @@ Info screen
     displays enemy abilities and what they do
     displays what guard does?
     keep it clean and simple
+
+Temporal mage is first challenge battle. All prior battles are teaching points.
+Folloring temporal mage, battles should assume understanding of base mechanics and demand optimal play at a fundamental level. Allow leniency for new mechanics. At least one turn to make critical mistake.
 
 #THings to focus on
 Skipped over ability gain text.

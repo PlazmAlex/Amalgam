@@ -160,7 +160,7 @@ orcGTurns = [3,4,8,9,14,17,19,21,25]
 while(True):
     Orc = CharacterModule.Enemy("Young Orc",45,9,2,
     orcSTurns,orcGTurns,[], [],AbilityModule.default, AbilityModule.default)
-    CombatModule.battle(SaveOne, Orc)
+    #CombatModule.battle(SaveOne, Orc)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -179,7 +179,7 @@ slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
 while(True):
     SavageSloth = CharacterModule.Enemy("Savage Sloth", 90, 9, 1,
     slothSTurns, slothGTurns, slothDTurns, [], AbilityModule.shred, AbilityModule.default)
-    CombatModule.battle(SaveOne, SavageSloth)
+    #CombatModule.battle(SaveOne, SavageSloth)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -194,8 +194,8 @@ paladinGTurns = [num for num in range(3,100,5)]
 paladinDTurns = [num for num in range(4,100,5)]
 
 while(True):
-    Paladin =  CharacterModule.Enemy("Paladin", 70, 13, 3,
-    paladinSTurns, paladinGTurns, paladinDTurns, [], AbilityModule.heal, AbilityModule.default)
+    Paladin =  CharacterModule.Enemy("Paladin", 70, 12, 3,
+    paladinSTurns, paladinGTurns, paladinDTurns, [], AbilityModule.rejuvinate, AbilityModule.default)
     CombatModule.battle(SaveOne, Paladin)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):

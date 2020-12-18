@@ -73,14 +73,13 @@ def useAbility(ability, user, opponent):
     #---
     #Healing detour
     #needed to alter how healing is handled since it's calculated based on max value first
-    if ability.effect == "maxhp":
-        statName = "hp"
+    if ability.effect == "hp":
         targetStat = target.hp
         #Prevent healing above maxHP
-        if target.hp + newStat > target.maxhp:
+        if target.hp + ability.magnitude > target.maxhp:
             statChange = (target.maxhp - target.hp)
         else:
-            statChange = newStat 
+            statChange = ability.magnitude
     #Display and implement effects 
     setattr(target, statName, targetStat + statChange)
     UIModule.clear()
