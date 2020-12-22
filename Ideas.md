@@ -3,6 +3,7 @@ Ideas
 
 All actions are doubled
 
+Angel is a bit repetetive?
 
 Better demon idea?
 Can't attack on even turns

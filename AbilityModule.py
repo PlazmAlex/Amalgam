@@ -32,7 +32,7 @@ strengthen = Ability("Strengthen", "attack", "+", 2, None, False, "user",
 bellow = Ability("Bellow", "attack", "+", 3, None, False, "user",
 " ROARED!", "Increase your attack power by 3 until end of battle.")
 rage = Ability("Rage", "attack", "+", 5, None, False, "user",
-" is seething with power!", "Increase your attack power by 4 until end of battle.")
+" is seething with power!", "Increase your attack power by 5 until end of battle.")
 timeLoop = Ability("Time Loop", "timeLoop", "+", 1, 3, False, "opponent", 
 " was put in a time loop!\n\nIt must repeat its last action!",
 "Opponent must repeat action used this turn 2 more times!")

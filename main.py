@@ -196,7 +196,7 @@ paladinDTurns = [num for num in range(4,100,5)]
 while(True):
     Paladin =  CharacterModule.Enemy("Paladin", 70, 12, 3,
     paladinSTurns, paladinGTurns, paladinDTurns, [], AbilityModule.rejuvinate, AbilityModule.default)
-    CombatModule.battle(SaveOne, Paladin)
+    #CombatModule.battle(SaveOne, Paladin)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -214,7 +214,7 @@ ogreDTurns = [1,2,3,18]
 while(True):
     Ogre =CharacterModule.Enemy("Monstrous Ogre", 120, 10, 2,
     ogreSTurns, ogreGTurns, ogreDTurns, [], AbilityModule.strengthen, AbilityModule.default)
-    CombatModule.battle(SaveOne, Ogre)
+    #CombatModule.battle(SaveOne, Ogre)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -238,7 +238,7 @@ for x in range(5,100,5):
 CombatModule.mageEffect = True
 
 while(True):
-    temporalMage = CharacterModule.Enemy("Temporal Archmage",250,13,2,
+    temporalMage = CharacterModule.Enemy("Temporal Archmage",235,13,1,
     mageSTurns, mageGTurns, mageDTurns, [], AbilityModule.timeLoop, AbilityModule.default)
     
     CombatModule.battle(SaveOne, temporalMage)
