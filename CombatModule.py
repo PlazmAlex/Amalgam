@@ -169,6 +169,8 @@ def turnCheck(turn, enemy, player):
                 enemy.ability = copy.copy(enemy.altAbility)
                 enemy.altAbility = copy.copy(x)
                 enemy.swapped = True
+                guardText = (UIModule.color.lightBlue + " (Blockable)" + UIModule.color.endColor 
+                + UIModule.color.yellow) if enemy.ability.guardable == True else ""
                 continue
             if intent == "superAttack" or intent == "debuff":
                 enemy.vulnerable = True

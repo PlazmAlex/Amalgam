@@ -241,7 +241,7 @@ while(True):
     temporalMage = CharacterModule.Enemy("Temporal Archmage",235,13,1,
     mageSTurns, mageGTurns, mageDTurns, [], AbilityModule.timeLoop, AbilityModule.default)
     
-    CombatModule.battle(SaveOne, temporalMage)
+    #CombatModule.battle(SaveOne, temporalMage)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -254,14 +254,21 @@ AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, 
 SaveOne.timeLoop = 0
 SaveOne.currentOptions = SaveOne.battleOptions[:]
 #Angel
-angelSTurns = [num for num in range(3,100,3)]
-angelGTurns = [num for num in range(2,100,3)]
-angelDTurns = [num for num in range(1,100,3)]
-
+angelSTurns = []
+angelGTurns = []
+angelDTurns = []
+angelSwapTurns = []
+for num in range(1,100,4):
+    angelSTurns.append(num + 2)
+    angelGTurns.append(num + 1)
+    angelDTurns.append(num)
+    angelDTurns.append(num + 3)
+    angelSwapTurns.append(num)
+    angelSwapTurns.append(num + 3)
 
 while(True):
-    Angel = CharacterModule.Enemy("Angel", 300, 16, 3,
-    angelSTurns, angelGTurns, angelDTurns, [], AbilityModule.weaken, AbilityModule.default)
+    Angel = CharacterModule.Enemy("Angel", 230, 17, 3,
+    angelSTurns, angelGTurns, angelDTurns, angelSwapTurns, AbilityModule.weaken, AbilityModule.rejuvinate)
     CombatModule.battle(SaveOne, Angel)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
@@ -281,7 +288,7 @@ for num in range(2,100,4):
 demonDTurns = [num for num in range(1,100,4)]
 
 while(True):
-    Demon = CharacterModule.Enemy("Demon", 225, 20, 2,
+    Demon = CharacterModule.Enemy("Demon", 200, 20, 2,
     demonSTurns, demonGTurns, demonDTurns, [], AbilityModule.shriek, AbilityModule.default)
     CombatModule.battle(SaveOne, Demon)
     if SaveOne.hp <= 0:
@@ -296,7 +303,7 @@ AbilityModule.abilityUpgrade(SaveOne, [AbilityModule.shred, AbilityModule.heal, 
 warSTurns = []
 warGTurns = []
 warDTurns = []
-warswapTurns =[]
+warSwapTurns =[]
 #Could just use range 1 time and add digits depending on the turn action
 #Fix this later
 for num in range(2,100, 5):
@@ -304,14 +311,14 @@ for num in range(2,100, 5):
     warSTurns.append(num + 1)
 for num in range(1, 100, 5):
     warDTurns.append(num)
-    warswapTurns.append(num)
+    warSwapTurns.append(num)
     warDTurns.append(num + 3)
     warDTurns.append(num + 4)
 for num in range(5, 100, 5):
-    warswapTurns.append(num)
+    warSwapTurns.append(num)
 
 while(True):
-    War = CharacterModule.Enemy("Horseman: War", 333, 18, 3, warSTurns, warGTurns, warDTurns, warswapTurns,
+    War = CharacterModule.Enemy("Horseman: War", 333, 18, 3, warSTurns, warGTurns, warDTurns, warSwapTurns,
     AbilityModule.enrage, AbilityModule.Eviscerate)
     CombatModule.battle(SaveOne, War)
     if SaveOne.hp <= 0:
