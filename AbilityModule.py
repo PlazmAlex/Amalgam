@@ -36,10 +36,10 @@ rage = Ability("Rage", "attack", "+", 5, None, False, "user",
 timeLoop = Ability("Time Loop", "timeLoop", "+", 1, 3, False, "opponent", 
 " was put in a time loop!\n\nIt must repeat its last action!",
 "Opponent must repeat action used this turn 2 more times!")
-weaken = Ability("Weaken", "attack", "-", 4, 4, True, "opponent",
-" was weakend for two turns", "Lower opponent's attack power by 4 for three turns." )
-shriek = Ability("Shriek", "defense", "-", 2, 3, True, "opponent",
-" is trembling for two turns", "Lower opponent's defense by 2 for two turns." )
+weaken = Ability("Weaken", "attack", "-", 5, 5, True, "opponent",
+" was weakend for 4 turns", "Lower opponent's attack power by 5 for four turns." )
+shriek = Ability("Shriek", "defense", "-", 2, 4, True, "opponent",
+" is trembling for two turns", "Lower opponent's defense by 2 for three turns." )
 enrage = Ability("Enrage", "enrage", "+", 1, 3, True, "opponent", " became enraged for two turns!",
 "Opponent can only attack for the next 2 turns")
 

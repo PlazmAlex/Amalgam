@@ -258,17 +258,18 @@ angelSTurns = []
 angelGTurns = []
 angelDTurns = []
 angelSwapTurns = []
-for num in range(1,100,4):
+for num in range(1,100,5):
     angelSTurns.append(num + 2)
+    angelSTurns.append(num + 3)
     angelGTurns.append(num + 1)
     angelDTurns.append(num)
-    angelDTurns.append(num + 3)
+    angelDTurns.append(num + 4)
     angelSwapTurns.append(num)
-    angelSwapTurns.append(num + 3)
+    angelSwapTurns.append(num + 4)
 
 while(True):
-    Angel = CharacterModule.Enemy("Angel", 230, 17, 3,
-    angelSTurns, angelGTurns, angelDTurns, angelSwapTurns, AbilityModule.weaken, AbilityModule.rejuvinate)
+    Angel = CharacterModule.Enemy("Angel", 180, 17, 4,
+    angelSTurns, angelGTurns, angelDTurns, angelSwapTurns, AbilityModule.weaken, AbilityModule.heal)
     CombatModule.battle(SaveOne, Angel)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
