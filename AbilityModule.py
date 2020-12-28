@@ -17,10 +17,10 @@ default = Ability("None", "attack", "-", 0, None, False, "user",
 " this text should never appear", "This enemy has no abilities")
 shred = Ability("Shred","bleed", "+", 2, None, True, "opponent",
 " has been shredded!","Increase enemy's bleed by 2. Each bleed deals 1 damage per turn.")
-Eviscerate = Ability("Eviscerate", "bleed", "+", 4, None, True, "opponent",
-" has been torn apart!","Increase enemy's bleed by 4. Each bleed deals 1 damage per turn.")
-disembowel = Ability("Disembowel", "bleed", "+", 5, None, True, "opponent",
-" has been gutted!", "Increase enemy's bleed by 5. Each bleed deals 1 damage per turn." )
+Eviscerate = Ability("Eviscerate", "bleed", "+", 3, None, True, "opponent",
+" has been torn apart!","Increase enemy's bleed by 3. Each bleed deals 1 damage per turn.")
+disembowel = Ability("Disembowel", "bleed", "+", 4, None, True, "opponent",
+" has been gutted!", "Increase enemy's bleed by 4. Each bleed deals 1 damage per turn." )
 heal = Ability("Heal", "hp", "+", 15, None, False, "user",
 " healed!", "Restore 15 HP.")
 rejuvinate = Ability("Rejuvinate", "hp", "+", 30, None, False, "user",

@@ -179,7 +179,7 @@ slothDTurns = [1,2,3,7,8,10,11,12,13,17,19,22,27,28,29,39,40]
 while(True):
     SavageSloth = CharacterModule.Enemy("Savage Sloth", 90, 9, 1,
     slothSTurns, slothGTurns, slothDTurns, [], AbilityModule.shred, AbilityModule.default)
-    #CombatModule.battle(SaveOne, SavageSloth)
+    CombatModule.battle(SaveOne, SavageSloth)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -196,7 +196,7 @@ paladinDTurns = [num for num in range(4,100,5)]
 while(True):
     Paladin =  CharacterModule.Enemy("Paladin", 70, 12, 3,
     paladinSTurns, paladinGTurns, paladinDTurns, [], AbilityModule.rejuvinate, AbilityModule.default)
-    #CombatModule.battle(SaveOne, Paladin)
+    CombatModule.battle(SaveOne, Paladin)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -214,7 +214,7 @@ ogreDTurns = [1,2,3,18]
 while(True):
     Ogre =CharacterModule.Enemy("Monstrous Ogre", 120, 10, 2,
     ogreSTurns, ogreGTurns, ogreDTurns, [], AbilityModule.strengthen, AbilityModule.default)
-    #CombatModule.battle(SaveOne, Ogre)
+    CombatModule.battle(SaveOne, Ogre)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -241,7 +241,7 @@ while(True):
     temporalMage = CharacterModule.Enemy("Temporal Archmage",235,13,1,
     mageSTurns, mageGTurns, mageDTurns, [], AbilityModule.timeLoop, AbilityModule.default)
     
-    #CombatModule.battle(SaveOne, temporalMage)
+    CombatModule.battle(SaveOne, temporalMage)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
@@ -268,9 +268,9 @@ for num in range(1,100,5):
     angelSwapTurns.append(num + 4)
 
 while(True):
-    Angel = CharacterModule.Enemy("Angel", 180, 17, 4,
+    Angel = CharacterModule.Enemy("Angel", 175, 17, 4,
     angelSTurns, angelGTurns, angelDTurns, angelSwapTurns, AbilityModule.weaken, AbilityModule.heal)
-    CombatModule.battle(SaveOne, Angel)
+    #CombatModule.battle(SaveOne, Angel)
     if SaveOne.hp <= 0:
         if CombatModule.retry(SaveOne):
             continue
